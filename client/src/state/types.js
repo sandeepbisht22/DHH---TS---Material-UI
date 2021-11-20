@@ -1,0 +1,26 @@
+export const ARTIST_TYPE = "ARTIST_TYPE";
+export const ARTISTS_INFO = "ARTISTS_INFO";
+export const LOAD_USER = "LOAD_USER";
+export const CURRENT_ARTIST = "CURRENT_ARTIST";
+export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
+export const SIGNUP_USER_SUCCESS = "SIGNUP_USER_SUCCESS";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const SIGNUP_FAIL = "SIGNUP_FAIL";
+export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
+export const REMOVE_ALERT = "REMOVE_ALERT";
+export const SET_ALERT = "SET_ALERT";
+export const AUTH_FAIL = "AUTH_FAIL";
+export const CLEAR_ERROR = "CLEAR_ERROR";
+export const LOGIN_VIA_GOOGLE = "LOGIN_VIA_GOOGLE";
+export const ARTIST_LIKED = "ARTIST_LIKED";
+export const ARTIST_UNLIKED = "ARTIST_UNLIKED";
+export const FAV_RAPPER = "FAV_RAPPER";
+export const FAV_BEATPRODUCER = "FAV_BEATPRODUCER";
+export const FAV_SONG = "FAV_SONG";
+export const FAV_ADDED = "FAV_ADDED";
+export const DISLIKE_CHECK = "DISLIKE_CHECK";
+export const LIKE_CHECK = "LIKE_CHECK";
+export const LIKE_SONG = "LIKE_SONG";
+export const ALL_SONG = "ALL_SONG";
+
+export const FAV_REMOVED = "FAV_REMOVED";

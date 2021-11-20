@@ -1,0 +1,411 @@
+{
+    "beatProducer": [
+      {
+        "id": 1,
+        "title": "OG's",
+        "scrollList": [
+            {	
+              "id":1,
+              "name":"Divine",
+              "profileImage":"divineProfile.jpg"
+            },
+            {	
+              "id":2,
+              "name":"Karma",
+              "profileImage":"karmaProfile.jpg"
+              
+            },		  {	
+              "id":3,
+              "name":"Raftaar",
+              "profileImage":"raftaarProfile.jpg"
+            }	,		  {	
+              "id":4,
+              "name":"SeedheMaut",
+              "profileImage":"seedhemautProfile.jpg"
+            }	,		  {	
+              "id":5,
+              "name":"MC STAN",
+              "profileImage":"mcstanProfile.jpg"
+            }		
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Upcoming",
+        "scrollList": [
+          {	
+            "id":1,
+            "name":"Divine",
+            "profileImage":"divineProfile.jpg"
+          },
+          {	
+            "id":2,
+            "name":"Karma",
+            "profileImage":"karmaProfile.jpg"
+            
+          },		  {	
+            "id":3,
+            "name":"Raftaar",
+            "profileImage":"raftaarProfile.jpg"
+          }	,		  {	
+            "id":4,
+            "name":"SeedheMaut",
+            "profileImage":"seedhemautProfile.jpg"
+          }	,		  {	
+            "id":5,
+            "name":"MC STAN",
+            "profileImage":"mcstanProfile.jpg"
+          }		
+      ]
+      }
+
+    ],
+    "rappers": [
+      {
+        "id": 1,
+        "title": "OG's",
+        "scrollList": [
+          {	
+            "id":1,
+            "name":"Divine",
+            "profileImage":"divineProfile.jpg"
+          },
+          {	
+            "id":2,
+            "name":"Karma",
+            "profileImage":"karmaProfile.jpg"
+            
+          },		  {	
+            "id":3,
+            "name":"Raftaar",
+            "profileImage":"raftaarProfile.jpg"
+          }	,		  {	
+            "id":4,
+            "name":"SeedheMaut",
+            "profileImage":"seedhemautProfile.jpg"
+          }	,		  {	
+            "id":5,
+            "name":"MC STAN",
+            "profileImage":"mcstanProfile.jpg"
+          }		
+      ]
+      },
+      {
+        "id": 2,
+        "title": "Upcoming",
+        "scrollList": [
+          {	
+            "id":1,
+            "name":"Divine",
+            "profileImage":"divineProfile.jpg"
+          },
+          {	
+            "id":2,
+            "name":"Karma",
+            "profileImage":"karmaProfile.jpg"
+            
+          },		  {	
+            "id":3,
+            "name":"Raftaar",
+            "profileImage":"raftaarProfile.jpg"
+          }	,		  {	
+            "id":4,
+            "name":"SeedheMaut",
+            "profileImage":"seedhemautProfile.jpg"
+          }	,		  {	
+            "id":5,
+            "name":"MC STAN",
+            "profileImage":"mcstanProfile.jpg"
+          }		
+      ]
+      }
+
+    ],
+    "rappersinfos":[
+      {
+        "name":"Divine",
+        "pageimage":"divineProfile.jpg",
+        "about":"Vivian Fernandes, better known by his stage name Divine, is an Indian rapper from Mumbai, Maharashtra. He started to gain popularity after the release of his song \"Yeh Mera Bombay\" (2013). He broke through with the release of his song \"Mere Gully Mein\" featuring fellow Mumbai rapper Naezy. On 12 December 2020, Divine became the first Indian rapper to be featured on Spotify Times Square billboard in New York City for his album Punya Paap, which had claimed the top spot on Apple Music India",
+        "title":"OG",
+        "sociallinks":[
+          {"instagram"  : "https://www.instagram.com/vivianakadivine/?hl=en"},
+          {"facebook":"https://www.facebook.com/viviandivineindia"},
+          {"twitter":"https://twitter.com/viviandivine?lang=en"},
+          {"youtube":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"},
+          {"spotify":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"},
+          {"apple":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"}
+
+        ]
+
+      },
+      {
+        "name":"Karma",
+        "pageimage":"karmaProfile.jpg",
+        "about":"Karma aka Vivek Arora is a known rapper from India born on 12 October 1995 in Dehradun, Uttarakhand, India which is his Hometown and is from a hindu family In the initial year of his career he used to work at a bank for 4000 INR per month.He started his career as a rapper in 2017. He published his first rap song ‘Agar Main Haara’ on 1 February 2017 on his youtube channel then on 13 April 2017, he uploads his next rap song ‘MASTAK PE DASTAK’ on his YouTube channel. Vivek used to work in a concert room in Deharadun, where he met first-time to Indian Rapper Raftaar during his night shift job. When Raftaar heard the rap song of Vivek, he was impressed by Vivek’s music and gave him a chance.On 26 November 2017, Raftaar called him to come to Delhi for a project.After he signed in a project with Raftaar, Vivek turned into Karma.Karma and Raftaar worked together in popular music videos, including Main Wahi Hoon (2019) from raftaar own album Mr Nair (2020).Vivek also participated in Mic Check by AK Projects, where he performed his rap song ‘1 Se 23’ on 1 January 2017",
+        "title":"OG",
+        "sociallinks":[
+          {"instagram"  : "https://www.instagram.com/karmathelekhak/?hl=en"},
+          {"facebook":"https://www.facebook.com/karmathelekhak/"},
+          {"twitter":"https://twitter.com/karma_muzic?lang=en"},
+          {"youtube":"https://www.youtube.com/c/VivekArora"},
+          {"spotify":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"},
+          {"apple":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"}
+
+        ]
+
+      },
+      {
+        "name":"Raftaar",
+        "pageimage":"raftaarProfile.jpg",
+        "about":"Dilin Nair (born 16 November 1988[1][2]), better known by his stage name Raftaar, is an Indian rapper, lyricist, dancer, TV personality and music composer. He started his career as a dancer. He began his career in rap in 2008 with Lil Golu and Young Amli (now known as Ikka), recording songs and uploading them on social sites. He then started working with Yo Yo Honey Singh as a part of group Mafia Mundeer.[3] Raftaar then split from the group due to credit-related problems. He was supported by Ankit Khanna, who introduced him to the Punjabi music band RDB, who then signed him onto their label, Three Records. Soon after the split between the RDB members, Raftaar joined Manjeet Ral (now known as Manj Musik). He started his solo career in 2016 after getting signed to Zee Music Company. He won the \"Best Urban Single\" award for \"Swag Mera Desi\" with Manj Musik at the Brit Asia TV Music Awards. In 2019, he started judging the reality shows MTV Hustle, Dance India Dance and Roadies",
+        "title":"OG",
+        "sociallinks":[
+          {"instagram"  : "https://www.instagram.com/raftaarmusic/"},
+          {"facebook":"https://www.facebook.com/raftaarmusic"},
+          {"twitter":"https://twitter.com/raftaarmusic"},
+          {"youtube":"https://www.youtube.com/channel/UCMXMp3Lc6v6v8dJH5ZGwtqA"},
+          {"spotify":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"},
+          {"apple":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"}
+
+        ]
+
+      },
+      {
+        "name":"SeedheMaut",
+        "pageimage":"seedhemautProfile.jpg",
+        "about":"Seedhe Maut represent the next stage in the evolution of the capital’s hip-hop sound. Having mastered the art of delivering razor sharp, combative and witty rhymes, the bi-lingual duo are following in the trailblazing footsteps of international hip-hop collectives such as Run The Jewels, Clipse, Black Hippy, Mobb Deep, Blackstar and more. 2 Ka Pahada, their debut mixtape, was released in 2017 to much fanfare and established them as one of the best new acts to emerge from Delhi’s flourishing hip-hop scene. Their single Seedhe Maut Anthem shows the different flows and cadences these young men can take on, doing complete justice to a beat crafted brilliantly by Sez.",
+        "title":"OG",
+        "sociallinks":[
+          {"instagram"  : "https://www.instagram.com/seedhemaut/"},
+          {"facebook":"https://www.facebook.com/SeedheMaut"},
+          {"twitter":"https://twitter.com/seedhemaut"},
+          {"youtube":"https://www.youtube.com/channel/UCV9Mdim99sdyd56EqKJ52fg"},
+          {"spotify":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"},
+          {"apple":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"}
+
+        ]
+
+      },
+      {
+        "name":"MC STAN",
+        "pageimage":"mcstanProfile.jpg",
+        "about":"MC Stan is one of the youngest Indian Singer, Rapper, music composer, and songwriter. MC Stan (Rapper) is a Hip-Hop Rapper and a well-known personality in India. His actual name is Altaf Shaikh, and MC Stan is his stage name. MC Stan is a viral rapper for his songs Wata (2018), Khuja Mat (2018), Lowkey (2019), Khajwe Vichaar (2019), and recently published Yede Ki Chadaar on 26 November 2019.",
+        "title":"OG",
+        "sociallinks":[
+          {"instagram"  : "https://www.instagram.com/m___c___stan/"},
+          {"facebook":"https://www.facebook.com/mcstanonthemic"},
+          {"twitter":"https://twitter.com/search?q=%23mcstan&lang=en"},
+          {"youtube":"https://www.youtube.com/channel/UC_Q-YjEXDN0ufkU4AoWhU1g"},
+          {"spotify":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"},
+          {"apple":"https://www.youtube.com/channel/UCFX8go5jeQ_9_Pk9WFl5tmA"}
+
+        ]
+
+      }
+    ],
+    "sampleyoutubefirstcall":[{
+      "kind": "youtube#searchListResponse",
+      "etag": "kaJmfd8cTGnMbvGA3bdmcl96XtA",
+      "nextPageToken": "CAUQAA",
+      "regionCode": "IN",
+      "pageInfo": {
+          "totalResults": 54,
+          "resultsPerPage": 5
+      },
+      "items": [
+          {
+              "kind": "youtube#searchResult",
+              "etag": "dCPVv0prr0MBLJ_JLdUENxKdC9E",
+              "id": {
+                  "kind": "youtube#video",
+                  "videoId": "wUNtsTrlHaA"
+              },
+              "snippet": {
+                  "publishedAt": "2021-04-15T04:30:18Z",
+                  "channelId": "UCrtOnzd9dWH9lXTAB-64Hfg",
+                  "title": "King - Casanova ft. Rahul Sathu | The Gorilla Bounce | Latest Hit Songs 2021",
+                  "description": "AVAILABLE ON ALL AUDIO PLATFORMS‼️ ✓♥️Follow    On Instagram♥️✓ https://www.instagram.com/ifeelking Song - ♥️ CASANOVA ♥️ Artist - King ...",
+                  "thumbnails": {
+                      "default": {
+                          "url": "https://i.ytimg.com/vi/wUNtsTrlHaA/default.jpg",
+                          "width": 120,
+                          "height": 90
+                      },
+                      "medium": {
+                          "url": "https://i.ytimg.com/vi/wUNtsTrlHaA/mqdefault.jpg",
+                          "width": 320,
+                          "height": 180
+                      },
+                      "high": {
+                          "url": "https://i.ytimg.com/vi/wUNtsTrlHaA/hqdefault.jpg",
+                          "width": 480,
+                          "height": 360
+                      }
+                  },
+                  "channelTitle": "King",
+                  "liveBroadcastContent": "none",
+                  "publishTime": "2021-04-15T04:30:18Z"
+              }
+          },
+          {
+              "kind": "youtube#searchResult",
+              "etag": "NIM3qGCHwiHLWqaVQNkkEjWPrkQ",
+              "id": {
+                  "kind": "youtube#video",
+                  "videoId": "kV2Xjm9Z708"
+              },
+              "snippet": {
+                  "publishedAt": "2021-09-30T04:30:09Z",
+                  "channelId": "UCrtOnzd9dWH9lXTAB-64Hfg",
+                  "title": "King - ERA | The Gorilla Bounce | Prod by. Section8 | Latest Hit Songs 2021",
+                  "description": "Follow    On Instagram  ✓ https://www.instagram.com/ifeelking Artist - King Female Lead - Megha Sharma Lyrics & Composed By - King Music Produced By ...",
+                  "thumbnails": {
+                      "default": {
+                          "url": "https://i.ytimg.com/vi/kV2Xjm9Z708/default.jpg",
+                          "width": 120,
+                          "height": 90
+                      },
+                      "medium": {
+                          "url": "https://i.ytimg.com/vi/kV2Xjm9Z708/mqdefault.jpg",
+                          "width": 320,
+                          "height": 180
+                      },
+                      "high": {
+                          "url": "https://i.ytimg.com/vi/kV2Xjm9Z708/hqdefault.jpg",
+                          "width": 480,
+                          "height": 360
+                      }
+                  },
+                  "channelTitle": "King",
+                  "liveBroadcastContent": "none",
+                  "publishTime": "2021-09-30T04:30:09Z"
+              }
+          },
+          {
+              "kind": "youtube#searchResult",
+              "etag": "CUVFAsxZj5nkED5NeqgwjrRpmas",
+              "id": {
+                  "kind": "youtube#video",
+                  "videoId": "tmTe6SiC0Po"
+              },
+              "snippet": {
+                  "publishedAt": "2021-05-20T12:30:16Z",
+                  "channelId": "UCrtOnzd9dWH9lXTAB-64Hfg",
+                  "title": "King - Shaamein ft. Harjas Harjaayi | The Gorilla Bounce | Prod. by Sshiv | Latest Hit Songs 2021",
+                  "description": "Follow    On Instagram  ✓ https://www.instagram.com/ifeelking Artist - King & Harjas Harjaayi Lyrics By - King & Harjas Harjaayi Composed By - King & Harjas ...",
+                  "thumbnails": {
+                      "default": {
+                          "url": "https://i.ytimg.com/vi/tmTe6SiC0Po/default.jpg",
+                          "width": 120,
+                          "height": 90
+                      },
+                      "medium": {
+                          "url": "https://i.ytimg.com/vi/tmTe6SiC0Po/mqdefault.jpg",
+                          "width": 320,
+                          "height": 180
+                      },
+                      "high": {
+                          "url": "https://i.ytimg.com/vi/tmTe6SiC0Po/hqdefault.jpg",
+                          "width": 480,
+                          "height": 360
+                      }
+                  },
+                  "channelTitle": "King",
+                  "liveBroadcastContent": "none",
+                  "publishTime": "2021-05-20T12:30:16Z"
+              }
+          },
+          {
+              "kind": "youtube#searchResult",
+              "etag": "nVflAClwML0cFHfJR5LOF0rK7c0",
+              "id": {
+                  "kind": "youtube#video",
+                  "videoId": "zk5FOjXQGS4"
+              },
+              "snippet": {
+                  "publishedAt": "2020-02-25T04:30:03Z",
+                  "channelId": "UCrtOnzd9dWH9lXTAB-64Hfg",
+                  "title": "King - No Loss (Official Video) | Prod.by Section8 | New Life | Latest Punjabi Hit Songs 2020",
+                  "description": "Follow On Instagram♥‼ https://www.instagram.com/ifeelking Song - No Loss✍     Artist - King Lyrics - King Composer - King Music - Section8 ...",
+                  "thumbnails": {
+                      "default": {
+                          "url": "https://i.ytimg.com/vi/zk5FOjXQGS4/default.jpg",
+                          "width": 120,
+                          "height": 90
+                      },
+                      "medium": {
+                          "url": "https://i.ytimg.com/vi/zk5FOjXQGS4/mqdefault.jpg",
+                          "width": 320,
+                          "height": 180
+                      },
+                      "high": {
+                          "url": "https://i.ytimg.com/vi/zk5FOjXQGS4/hqdefault.jpg",
+                          "width": 480,
+                          "height": 360
+                      }
+                  },
+                  "channelTitle": "King",
+                  "liveBroadcastContent": "none",
+                  "publishTime": "2020-02-25T04:30:03Z"
+              }
+          },
+          {
+              "kind": "youtube#searchResult",
+              "etag": "WkeYISyeYGUhrQKIwruWJBUJJLM",
+              "id": {
+                  "kind": "youtube#video",
+                  "videoId": "_fHQzYx-_Sg"
+              },
+              "snippet": {
+                  "publishedAt": "2020-07-10T04:30:13Z",
+                  "channelId": "UCrtOnzd9dWH9lXTAB-64Hfg",
+                  "title": "King - Dracula (Official Video) | The Carnival | Prod. by Yokimuzik | Latest Hit Songs 2020",
+                  "description": "Follow    On Instagram♥️✓ https://www.instagram.com/ifeelking Song - ‍♂️DRACULA    ‍♂️     Artist - King Lyrics - King Composer - King ...",
+                  "thumbnails": {
+                      "default": {
+                          "url": "https://i.ytimg.com/vi/_fHQzYx-_Sg/default.jpg",
+                          "width": 120,
+                          "height": 90
+                      },
+                      "medium": {
+                          "url": "https://i.ytimg.com/vi/_fHQzYx-_Sg/mqdefault.jpg",
+                          "width": 320,
+                          "height": 180
+                      },
+                      "high": {
+                          "url": "https://i.ytimg.com/vi/_fHQzYx-_Sg/hqdefault.jpg",
+                          "width": 480,
+                          "height": 360
+                      }
+                  },
+                  "channelTitle": "King",
+                  "liveBroadcastContent": "none",
+                  "publishTime": "2020-07-10T04:30:13Z"
+              }
+          }
+      ]
+  }],"sampleyoutubesecondcall":[
+    {
+      "kind": "youtube#videoListResponse",
+      "etag": "mEYUtzc0q6rjFiX7_jfVjQF_j00",
+      "items": [
+          {
+              "kind": "youtube#video",
+              "etag": "-swUq1rCAMaKLAJnQ_DlTDr7nPs",
+              "id": "A66TYFdz8YA",
+              "statistics": {
+                  "viewCount": "116027052",
+                  "likeCount": "2627598",
+                  "dislikeCount": "47345",
+                  "favoriteCount": "0",
+                  "commentCount": "79314"
+              }
+          }
+      ],
+      "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 1
+      }
+  }
+  ]
+  }
