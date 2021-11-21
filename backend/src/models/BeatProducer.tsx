@@ -1,0 +1,55 @@
+import mongoose from "mongoose";
+interface ArtistInterface {
+  name: string;
+  title: string;
+  about: string;
+  sociallinks: Array<string>;
+  originalName: string;
+  profileImage: string;
+  like?: string;
+  unLike?: string;
+  date?: Date;
+}
+
+const beatProducerSchema = new mongoose.Schema<ArtistInterface>({
+  name: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  about: {
+    type: String,
+    required: true,
+  },
+  sociallinks: {
+    type: [String],
+    required: true,
+  },
+  originalName: {
+    type: String,
+  },
+  profileImage: {
+    type: String,
+    required: true,
+  },
+  like: {
+    type: Number,
+  },
+  unLike: {
+    type: Number,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const beatProducerModel = mongoose.model<ArtistInterface>(
+  "beatProducer",
+  beatProducerSchema
+);
+
+export { beatProducerModel };

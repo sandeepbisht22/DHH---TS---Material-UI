@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import HorizontalScroll from "./../../common/HorizontalScroll";
+import HorizontalScroll from "../../common/HorizontalScroll";
 import { artistActions } from "../../../state/actions";
 const BeatProducers = () => {
   const artistType = "beatProducers";

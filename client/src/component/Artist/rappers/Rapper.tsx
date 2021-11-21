@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import SocialMedia from "./../../common/SocialMedia";
+import SocialMedia from "../../common/SocialMedia";
 import YoutubeVideo from "../../common/YoutubeVideo";
 import {
   artistActions,
@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Songs from "../../common/Songs";
 import axios from "axios";
 import setAuthToken from "../../../utils/setAuthnToken";
-import { favRappers } from "./../../../state/actions/userChoiceAction";
+import { favRappers } from "../../../state/actions/userChoiceAction";
 
 const Rapper = ({ match }) => {
   const dispatch = useDispatch();

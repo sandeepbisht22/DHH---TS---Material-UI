@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SocialMedia from "./../../common/SocialMedia";
+import SocialMedia from "../../common/SocialMedia";
 import YoutubeVideo from "../../common/YoutubeVideo";
 import { artistActions, userChoiceAction } from "../../../state/actions";
 import { useSelector, useDispatch } from "react-redux";
