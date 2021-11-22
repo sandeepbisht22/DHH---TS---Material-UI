@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface UserChoiceInterface {
-  user: [mongoose.Schema.Types.ObjectId];
+  user: mongoose.Types.ObjectId;
   likedrapper: [mongoose.Schema.Types.ObjectId];
   favrapper: [mongoose.Schema.Types.ObjectId];
   dislikedrapper: [mongoose.Schema.Types.ObjectId];
@@ -14,7 +14,7 @@ export interface UserChoiceInterface {
 }
 const userChoiceSchema = new mongoose.Schema<UserChoiceInterface>({
   user: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: mongoose.Schema.Types.ObjectId,
     ref: "users",
   },
   favrapper: [{ type: mongoose.Schema.Types.ObjectId, ref: "rappers" }],
@@ -34,6 +34,9 @@ const userChoiceSchema = new mongoose.Schema<UserChoiceInterface>({
   dislikedSong: [{ type: mongoose.Schema.Types.ObjectId, ref: "songs" }],
 });
 
-const userChoiceModel = mongoose.model("userchoice", userChoiceSchema);
+const userChoiceModel = mongoose.model<UserChoiceInterface>(
+  "userchoice",
+  userChoiceSchema
+);
 
 export { userChoiceModel };

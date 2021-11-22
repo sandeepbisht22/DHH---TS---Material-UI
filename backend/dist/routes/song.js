@@ -72,7 +72,7 @@ songRouter.post("/likeSong/:songId", authMiddleware, (req, res) => __awaiter(voi
         //remove from dislike user choice
         yield userChoiceModel
             .updateOne({
-            user: new mongoose.Schema.Types.ObjectId((_a = req.user) === null || _a === void 0 ? void 0 : _a.id),
+            user: new mongoose.Types.ObjectId((_a = req.user) === null || _a === void 0 ? void 0 : _a.id),
         }, {
             $pull: {
                 dislikedSong: req.params.songId,
@@ -114,7 +114,7 @@ songRouter.post("/dislikeSong/:songId", authMiddleware, (req, res) => __awaiter(
         //remove from like user choice
         yield userChoiceModel
             .updateOne({
-            user: new mongoose.Schema.Types.ObjectId((_b = req.user) === null || _b === void 0 ? void 0 : _b.id),
+            user: new mongoose.Types.ObjectId((_b = req.user) === null || _b === void 0 ? void 0 : _b.id),
         }, {
             $pull: {
                 likedSong: req.params.songId,

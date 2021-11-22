@@ -81,7 +81,7 @@ songRouter.post(
       await userChoiceModel
         .updateOne(
           {
-            user: new mongoose.Schema.Types.ObjectId(req.user?.id as string),
+            user: new mongoose.Types.ObjectId(req.user?.id as string),
           },
           {
             $pull: {
@@ -139,7 +139,7 @@ songRouter.post(
       await userChoiceModel
         .updateOne(
           {
-            user: new mongoose.Schema.Types.ObjectId(req.user?.id as string),
+            user: new mongoose.Types.ObjectId(req.user?.id as string),
           },
           {
             $pull: {

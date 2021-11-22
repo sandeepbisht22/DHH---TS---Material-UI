@@ -12,9 +12,24 @@ import { ArtistInterface } from "./../models/Rappers";
 const userChoiceRouter = Router();
 
 interface queryInterface {
-  action: string;
+  action:
+    | "likedrapper"
+    | "favrapper"
+    | "dislikedrapper"
+    | "favbeatproducer"
+    | "likedbeatproducer"
+    | "dislikedbeatproducer"
+    | "favsong"
+    | "likedSong"
+    | "dislikedSong";
   value: number;
 }
+
+// interface queryInterface {
+//   action: string;
+//   value: number;
+// }
+
 const modals = new Map<
   string,
   | mongoose.Model<SongInterface, {}, {}, {}>
@@ -27,6 +42,30 @@ const modals = new Map<
   ["favbeatproducer", beatProducerModel],
 ]);
 
+function convert(strVal: string): queryInterface["action"] {
+  switch (strVal) {
+    case "likedrapper":
+      return "favrapper";
+    case "favrapper":
+      return "dislikedrapper";
+    case "dislikedrapper":
+      return "favbeatproducer";
+    case "favbeatproducer":
+      return "favbeatproducer";
+    case "likedbeatproducer":
+      return "likedbeatproducer";
+    case "dislikedbeatproducer":
+      return "dislikedbeatproducer";
+    case "favsong":
+      return "favsong";
+    case "likedSong":
+      return "likedSong";
+    case "dislikedSong":
+      return "dislikedSong";
+    default:
+      throw new Error("Unsupported type");
+  }
+}
 /**
  * @route    GET api/userchoice/:id/:choice
  * @param    id is id of song, rapper or beatproducer and choice will be key of model modals
@@ -42,23 +81,24 @@ userChoiceRouter.get(
     );
     try {
       const currModal = modals.get(req.params.choice);
-      var query: queryInterface = { action: "", value: 0 };
-      query.action = req.params.choice;
-      query.value = 1;
+      var query: queryInterface = {
+        action: convert(req.params.choice),
+        value: 1,
+      };
+
       const choiceRes = await userChoiceModel
         .find(
-          { user: new mongoose.Schema.Types.ObjectId(req.params.id) },
+          { user: new mongoose.Types.ObjectId(req.params.id as string) },
           query
         )
         .lean();
       const actionList = choiceRes[0][query.action];
       let actionDataList = [];
       for (var i = 0; i < actionList.length; i++) {
-        console.log(i + actionList[i]);
         const actionInfo = await currModal?.findOne({
-          _id: new mongoose.Schema.Types.ObjectId(actionList[i].toString()),
+          _id: actionList[i],
         });
-        actionDataList[i] = actionInfo[0]._doc;
+        actionDataList[i] = actionInfo![0];
       }
       // console.log("length is " + actionDataList);
       res.json(actionDataList);
@@ -74,6 +114,37 @@ userChoiceRouter.get(
 );
 
 /**
+ * @route    POST api/userchoice/allFavSongs
+ * @param
+ * @desc     Will all fav rappers for the current users
+ * @access   Private
+ */
+
+userChoiceRouter.post(
+  "/allFavSongs",
+  authMiddleware,
+  async (req: IGetUserAuthInfoRequest, res: Response) => {
+    let favSongsArray = await userChoiceModel
+      .find(
+        {
+          user: new mongoose.Types.ObjectId(req?.user?.id as string),
+        },
+        { favsong: 1 }
+      )
+      .lean();
+    const favSongs = favSongsArray[0]["favsong"];
+    let favSongList = [];
+    for (var i = 0; i < favSongs.length; i++) {
+      const actionInfo = await songModel.find({
+        _id: favSongs[i].toString(),
+      });
+      favSongList[i] = actionInfo[0];
+    }
+    console.log(JSON.stringify(favSongs));
+    // res.json(favSongList);
+  }
+);
+/**
  * @route    POST api/userchoice/add/:choice/:id/
  * @param    id is id of song, rapper or beatproducer and choice will be key of model modals
  * @desc     Will add document to database with new fav rapper, likesong, dislikesong..etc based on id and choice made
@@ -84,15 +155,16 @@ userChoiceRouter.post(
   authMiddleware,
   async (req: IGetUserAuthInfoRequest, res: Response) => {
     const currModal = modals.get(req.params.choice);
-    var query: queryInterface = { action: "", value: 0 };
-    query.action = req.params.choice;
-    query.value = 1;
+    var query: queryInterface = {
+      action: convert(req.params.choice),
+      value: 1,
+    };
     const isChoicePresent = await userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
       await userChoiceModel
         .updateOne(
           {
-            user: new mongoose.Schema.Types.ObjectId(req?.user?.id as string),
+            user: new mongoose.Types.ObjectId(req?.user?.id as string),
           },
           { $push: query }
         )
@@ -118,15 +190,16 @@ userChoiceRouter.post(
   async (req: IGetUserAuthInfoRequest, res: Response) => {
     const currModal = modals.get(req.params.choice);
 
-    var query: queryInterface = { action: "", value: 0 };
-    query.action = req.params.choice;
-    query.value = 1;
+    var query: queryInterface = {
+      action: convert(req.params.choice),
+      value: 1,
+    };
     const isChoicePresent = await userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
       await userChoiceModel
         .updateOne(
           {
-            user: [new mongoose.Schema.Types.ObjectId(req?.user?.id as string)],
+            user: [new mongoose.Types.ObjectId(req?.user?.id as string)],
           },
           { $pull: query }
         )
@@ -153,14 +226,14 @@ userChoiceRouter.post(
     if (req.params.action === "add") {
       await userChoiceModel.updateOne(
         {
-          user: new mongoose.Schema.Types.ObjectId(req?.user?.id as string),
+          user: new mongoose.Types.ObjectId(req?.user?.id as string),
         },
         { $push: { [req.params.artistValue]: req.params.id } }
       );
     } else {
       await userChoiceModel.updateOne(
         {
-          user: new mongoose.Schema.Types.ObjectId(req?.user?.id as string),
+          user: new mongoose.Types.ObjectId(req?.user?.id as string),
         },
         {
           $pull: { [req.params.artistValue]: req.params.id },
@@ -184,14 +257,14 @@ userChoiceRouter.post(
     if (req.params.action === "add") {
       await userChoiceModel.updateOne(
         {
-          user: new mongoose.Schema.Types.ObjectId(req?.user?.id as string),
+          user: new mongoose.Types.ObjectId(req?.user?.id as string),
         },
         { $push: { dislikedrapper: req.params.id } }
       );
     } else {
       await userChoiceModel.updateOne(
         {
-          user: new mongoose.Schema.Types.ObjectId(req?.user?.id as string),
+          user: new mongoose.Types.ObjectId(req?.user?.id as string),
         },
         {
           $pull: { dislikedrapper: req.params.id },
@@ -224,35 +297,4 @@ userChoiceRouter.get(
   }
 );
 
-/**
- * @route    POST api/userchoice/allFavSongs
- * @param
- * @desc     Will all fav rappers for the current users
- * @access   Private
- */
-
-userChoiceRouter.post(
-  "/allFavSongs",
-  authMiddleware,
-  async (req: IGetUserAuthInfoRequest, res: Response) => {
-    let favSongs = await userChoiceModel
-      .find(
-        {
-          user: [new mongoose.Schema.Types.ObjectId(req?.user?.id as string)],
-        },
-        { favsong: 1 }
-      )
-      .lean();
-    // favSongs = favSongs[0]._doc["favsong"];
-    // let favSongList = [];
-    // for (var i = 0; i < favSongs.length; i++) {
-    //   const actionInfo = await songModel.find({
-    //     _id: favSongs[i].toString(),
-    //   });
-    //   favSongList[i] = actionInfo[0]._doc;
-    // }
-    console.log(JSON.stringify(favSongs));
-    // res.json(favSongList);
-  }
-);
 export default userChoiceRouter;
