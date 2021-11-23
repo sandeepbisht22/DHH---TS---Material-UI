@@ -15,6 +15,10 @@ import { beatProducerModel } from "../models/BeatProducer";
 import { authMiddleware } from "../middleware/auth";
 import mongoose from "mongoose";
 const userChoiceRouter = Router();
+// interface queryInterface {
+//   action: string;
+//   value: number;
+// }
 const modals = new Map([
     ["favsong", songModel],
     ["likedSong", songModel],
@@ -32,19 +36,18 @@ userChoiceRouter.get("/:id/:choice", [], (req, res) => __awaiter(void 0, void 0,
     console.log("[ userChoice ] Entering to fetch user choice info favourite rapper");
     try {
         const currModal = modals.get(req.params.choice);
-        var query = { action: "", value: 0 };
-        query.action = req.params.choice;
-        query.value = 1;
+        var query = {};
+        query[req.params.choice] = 1;
         const choiceRes = yield userChoiceModel
             .find({ user: new mongoose.Types.ObjectId(req.params.id) }, query)
             .lean();
-        const actionList = choiceRes[0][query.action];
+        const actionList = choiceRes[0][req.params.choice];
         let actionDataList = [];
         for (var i = 0; i < actionList.length; i++) {
             const actionInfo = yield (currModal === null || currModal === void 0 ? void 0 : currModal.findOne({
-                _id: new mongoose.Schema.Types.ObjectId(actionList[i]),
+                _id: actionList[i],
             }));
-            actionDataList[i] = actionInfo[0];
+            actionDataList[i] = actionInfo;
         }
         // console.log("length is " + actionDataList);
         res.json(actionDataList);
@@ -89,9 +92,10 @@ userChoiceRouter.post("/allFavSongs", authMiddleware, (req, res) => __awaiter(vo
 userChoiceRouter.post("/add/:choice/:id/", authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     const currModal = modals.get(req.params.choice);
-    var query = { action: "", value: 0 };
-    query.action = req.params.choice;
-    query.value = 1;
+    var query = {
+        action: convert(req.params.choice),
+        value: 1,
+    };
     const isChoicePresent = yield userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
         yield userChoiceModel
@@ -114,9 +118,10 @@ userChoiceRouter.post("/add/:choice/:id/", authMiddleware, (req, res) => __await
 userChoiceRouter.post("/remove/:choice/:id/", authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _c;
     const currModal = modals.get(req.params.choice);
-    var query = { action: "", value: 0 };
-    query.action = req.params.choice;
-    query.value = 1;
+    var query = {
+        action: convert(req.params.choice),
+        value: 1,
+    };
     const isChoicePresent = yield userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
         yield userChoiceModel

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface ArtistInterface {
+export interface ArtistInterface extends mongoose.Document {
   name: string;
   title: string;
   about: string;

@@ -10,39 +10,7 @@ import { SongInterface } from "./../models/Songs";
 import { ArtistInterface } from "./../models/Rappers";
 
 const userChoiceRouter = Router();
-
-interface queryInterface {
-  action:
-    | "likedrapper"
-    | "favrapper"
-    | "dislikedrapper"
-    | "favbeatproducer"
-    | "likedbeatproducer"
-    | "dislikedbeatproducer"
-    | "favsong"
-    | "likedSong"
-    | "dislikedSong";
-  value: number;
-}
-
-// interface queryInterface {
-//   action: string;
-//   value: number;
-// }
-
-const modals = new Map<
-  string,
-  | mongoose.Model<SongInterface, {}, {}, {}>
-  | mongoose.Model<ArtistInterface, {}, {}, {}>
->([
-  ["favsong", songModel],
-  ["likedSong", songModel],
-  ["dislikedSong", songModel],
-  ["favrapper", rapperModel],
-  ["favbeatproducer", beatProducerModel],
-]);
-
-function convert(strVal: string): queryInterface["action"] {
+function convert(strVal: string) {
   switch (strVal) {
     case "likedrapper":
       return "favrapper";
@@ -66,6 +34,23 @@ function convert(strVal: string): queryInterface["action"] {
       throw new Error("Unsupported type");
   }
 }
+// interface queryInterface {
+//   action: string;
+//   value: number;
+// }
+
+const modals = new Map<
+  string,
+  | mongoose.Model<SongInterface, {}, {}, {}>
+  | mongoose.Model<ArtistInterface, {}, {}, {}>
+>([
+  ["favsong", songModel],
+  ["likedSong", songModel],
+  ["dislikedSong", songModel],
+  ["favrapper", rapperModel],
+  ["favbeatproducer", beatProducerModel],
+]);
+
 /**
  * @route    GET api/userchoice/:id/:choice
  * @param    id is id of song, rapper or beatproducer and choice will be key of model modals
@@ -81,24 +66,19 @@ userChoiceRouter.get(
     );
     try {
       const currModal = modals.get(req.params.choice);
-      var query: queryInterface = {
-        action: convert(req.params.choice),
-        value: 1,
-      };
-
+      var query: { [k: string]: number } = {};
+      query[req.params.choice] = 1;
       const choiceRes = await userChoiceModel
-        .find(
-          { user: new mongoose.Types.ObjectId(req.params.id as string) },
-          query
-        )
+        .find({ user: new mongoose.Types.ObjectId(req.params.id) }, query)
         .lean();
-      const actionList = choiceRes[0][query.action];
+
+      const actionList = choiceRes[0][convert(req.params.choice)];
       let actionDataList = [];
       for (var i = 0; i < actionList.length; i++) {
         const actionInfo = await currModal?.findOne({
           _id: actionList[i],
         });
-        actionDataList[i] = actionInfo![0];
+        actionDataList[i] = actionInfo;
       }
       // console.log("length is " + actionDataList);
       res.json(actionDataList);
@@ -155,10 +135,9 @@ userChoiceRouter.post(
   authMiddleware,
   async (req: IGetUserAuthInfoRequest, res: Response) => {
     const currModal = modals.get(req.params.choice);
-    var query: queryInterface = {
-      action: convert(req.params.choice),
-      value: 1,
-    };
+    var query: { [k: string]: number } = {};
+    query[req.params.choice] = 1;
+
     const isChoicePresent = await userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
       await userChoiceModel
@@ -190,10 +169,8 @@ userChoiceRouter.post(
   async (req: IGetUserAuthInfoRequest, res: Response) => {
     const currModal = modals.get(req.params.choice);
 
-    var query: queryInterface = {
-      action: convert(req.params.choice),
-      value: 1,
-    };
+    var query: { [k: string]: number } = {};
+    query[req.params.choice] = 1;
     const isChoicePresent = await userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
       await userChoiceModel

@@ -24,13 +24,13 @@ songRouter.get("/:artistType/:id", [], async (req: Request, res: Response) => {
     if (req.params.artistType === "rappers") {
       songs = await songModel
         .find({
-          rapper: new mongoose.Schema.Types.ObjectId(req.params.id),
+          rapper: new mongoose.Types.ObjectId(req.params.id),
         })
         .lean();
     } else {
       songs = await songModel
         .find({
-          beatproducer: new mongoose.Schema.Types.ObjectId(req.params.id),
+          beatproducer: new mongoose.Types.ObjectId(req.params.id),
         })
         .lean();
     }
@@ -60,7 +60,7 @@ songRouter.post(
 
     const isLiked: UserChoiceInterface = await userChoiceModel
       .findOne({
-        likedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        likedSong: new mongoose.Types.ObjectId(req.params.songId),
       })
       .lean();
 
@@ -73,7 +73,7 @@ songRouter.post(
 
     const isDisliked = await userChoiceModel
       .findOne({
-        dislikedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
       })
       .lean();
     if (isDisliked !== null) {
@@ -119,7 +119,7 @@ songRouter.post(
     //dislike only if not present in like
     const isDisliked = await userChoiceModel
       .findOne({
-        dislikedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
       })
       .lean();
     if (isDisliked === null) {
@@ -131,7 +131,7 @@ songRouter.post(
 
     const isLiked = await userChoiceModel
       .findOne({
-        likedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        likedSong: new mongoose.Types.ObjectId(req.params.songId),
       })
       .lean();
     if (isLiked !== null) {

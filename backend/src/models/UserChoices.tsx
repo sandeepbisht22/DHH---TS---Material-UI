@@ -1,16 +1,18 @@
 import mongoose from "mongoose";
+import { ArtistInterface } from "./Rappers";
+import { SongInterface } from "./Songs";
 
-export interface UserChoiceInterface {
+export interface UserChoiceInterface extends mongoose.Document {
   user: mongoose.Types.ObjectId;
-  likedrapper: [mongoose.Schema.Types.ObjectId];
-  favrapper: [mongoose.Schema.Types.ObjectId];
-  dislikedrapper: [mongoose.Schema.Types.ObjectId];
-  favbeatproducer: [mongoose.Schema.Types.ObjectId];
-  likedbeatproducer: [mongoose.Schema.Types.ObjectId];
-  dislikedbeatproducer: [mongoose.Schema.Types.ObjectId];
-  favsong: [mongoose.Schema.Types.ObjectId];
-  likedSong: [mongoose.Schema.Types.ObjectId];
-  dislikedSong: [mongoose.Schema.Types.ObjectId];
+  likedrapper: [ArtistInterface["_id"]];
+  favrapper: [ArtistInterface["_id"]];
+  dislikedrapper: [ArtistInterface["_id"]];
+  favbeatproducer: [ArtistInterface["_id"]];
+  likedbeatproducer: [ArtistInterface["_id"]];
+  dislikedbeatproducer: [ArtistInterface["_id"]];
+  favsong: [SongInterface["_id"]];
+  likedSong: [SongInterface["_id"]];
+  dislikedSong: [SongInterface["_id"]];
 }
 const userChoiceSchema = new mongoose.Schema<UserChoiceInterface>({
   user: {

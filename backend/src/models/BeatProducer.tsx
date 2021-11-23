@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-interface ArtistInterface {
+interface ArtistInterface extends mongoose.Document {
   name: string;
   title: string;
   about: string;

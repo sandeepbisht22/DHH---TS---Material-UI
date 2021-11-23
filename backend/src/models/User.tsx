@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface User {
+interface User extends mongoose.Document {
   name: string;
   email: string;
   phoneno?: string;

@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
-export interface SongInterface {
+import { ArtistInterface } from "./Rappers";
+
+export interface SongInterface extends mongoose.Document {
   name: string;
-  rapper: mongoose.Schema.Types.ObjectId;
-  beatproducer: mongoose.Schema.Types.ObjectId;
+  rapper: ArtistInterface["_id"];
+  beatproducer: ArtistInterface["_id"];
   songlinks?: string;
   like?: string;
   dislike?: string;

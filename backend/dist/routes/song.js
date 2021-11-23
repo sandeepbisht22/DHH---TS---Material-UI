@@ -26,14 +26,14 @@ songRouter.get("/:artistType/:id", [], (req, res) => __awaiter(void 0, void 0, v
         if (req.params.artistType === "rappers") {
             songs = yield songModel
                 .find({
-                rapper: new mongoose.Schema.Types.ObjectId(req.params.id),
+                rapper: new mongoose.Types.ObjectId(req.params.id),
             })
                 .lean();
         }
         else {
             songs = yield songModel
                 .find({
-                beatproducer: new mongoose.Schema.Types.ObjectId(req.params.id),
+                beatproducer: new mongoose.Types.ObjectId(req.params.id),
             })
                 .lean();
         }
@@ -57,7 +57,7 @@ songRouter.post("/likeSong/:songId", authMiddleware, (req, res) => __awaiter(voi
     var _a;
     const isLiked = yield userChoiceModel
         .findOne({
-        likedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        likedSong: new mongoose.Types.ObjectId(req.params.songId),
     })
         .lean();
     if (isLiked === null) {
@@ -65,7 +65,7 @@ songRouter.post("/likeSong/:songId", authMiddleware, (req, res) => __awaiter(voi
     }
     const isDisliked = yield userChoiceModel
         .findOne({
-        dislikedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
     })
         .lean();
     if (isDisliked !== null) {
@@ -99,7 +99,7 @@ songRouter.post("/dislikeSong/:songId", authMiddleware, (req, res) => __awaiter(
     //dislike only if not present in like
     const isDisliked = yield userChoiceModel
         .findOne({
-        dislikedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
     })
         .lean();
     if (isDisliked === null) {
@@ -107,7 +107,7 @@ songRouter.post("/dislikeSong/:songId", authMiddleware, (req, res) => __awaiter(
     }
     const isLiked = yield userChoiceModel
         .findOne({
-        likedSong: new mongoose.Schema.Types.ObjectId(req.params.songId),
+        likedSong: new mongoose.Types.ObjectId(req.params.songId),
     })
         .lean();
     if (isLiked !== null) {
