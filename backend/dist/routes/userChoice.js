@@ -90,6 +90,7 @@ userChoiceRouter.post("/allFavSongs", authMiddleware, (req, res) => __awaiter(vo
         user: new mongoose.Types.ObjectId((_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id),
     }, { favsong: 1 })
         .lean()
+        .populate("favsong")
         .exec();
     const favSongs = favSongsArray[0]["favsong"];
     let favSongList = [];
@@ -100,7 +101,7 @@ userChoiceRouter.post("/allFavSongs", authMiddleware, (req, res) => __awaiter(vo
         favSongList[i] = actionInfo[0];
     }
     console.log(JSON.stringify(favSongs));
-    // res.json(favSongList);
+    res.json(favSongs);
 }));
 /**
  * @route    POST api/userchoice/add/:choice/:id/
