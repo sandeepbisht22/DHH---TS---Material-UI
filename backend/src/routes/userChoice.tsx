@@ -70,18 +70,12 @@ userChoiceRouter.get(
       query[req.params.choice] = 1;
       const choiceRes = await userChoiceModel
         .find({ user: new mongoose.Types.ObjectId(req.params.id) }, query)
-        .lean();
+        .lean()
+        .populate(req.params.choice)
+        .exec();
 
       const actionList = choiceRes[0][convert(req.params.choice)];
-      let actionDataList = [];
-      for (var i = 0; i < actionList.length; i++) {
-        const actionInfo = await currModal?.findOne({
-          _id: actionList[i],
-        });
-        actionDataList[i] = actionInfo;
-      }
-      // console.log("length is " + actionDataList);
-      res.json(actionDataList);
+      res.json(actionList);
       console.log("[userChoice] response send for fav rapper");
     } catch (error: any) {
       console.log(
@@ -111,7 +105,8 @@ userChoiceRouter.post(
         },
         { favsong: 1 }
       )
-      .lean();
+      .lean()
+      .exec();
     const favSongs = favSongsArray[0]["favsong"];
     let favSongList = [];
     for (var i = 0; i < favSongs.length; i++) {
@@ -147,7 +142,8 @@ userChoiceRouter.post(
           },
           { $push: query }
         )
-        .lean();
+        .lean()
+        .exec();
     }
     const actionInfo = await currModal?.findOne({
       _id: req.params.id,
@@ -180,7 +176,8 @@ userChoiceRouter.post(
           },
           { $pull: query }
         )
-        .lean();
+        .lean()
+        .exec();
     }
     const actionInfo = await currModal?.findOne({
       _id: req.params.id,
@@ -265,7 +262,8 @@ userChoiceRouter.get(
   async (req: Request, res: Response) => {
     const isLikedInfo = await userChoiceModel
       .findOne({ [req.params.likeaction]: req.params.artistid })
-      .lean();
+      .lean()
+      .exec();
     if (isLikedInfo !== null) {
       res.json({ res: "true" });
     } else {

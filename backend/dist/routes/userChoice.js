@@ -15,6 +15,30 @@ import { beatProducerModel } from "../models/BeatProducer";
 import { authMiddleware } from "../middleware/auth";
 import mongoose from "mongoose";
 const userChoiceRouter = Router();
+function convert(strVal) {
+    switch (strVal) {
+        case "likedrapper":
+            return "favrapper";
+        case "favrapper":
+            return "dislikedrapper";
+        case "dislikedrapper":
+            return "favbeatproducer";
+        case "favbeatproducer":
+            return "favbeatproducer";
+        case "likedbeatproducer":
+            return "likedbeatproducer";
+        case "dislikedbeatproducer":
+            return "dislikedbeatproducer";
+        case "favsong":
+            return "favsong";
+        case "likedSong":
+            return "likedSong";
+        case "dislikedSong":
+            return "dislikedSong";
+        default:
+            throw new Error("Unsupported type");
+    }
+}
 // interface queryInterface {
 //   action: string;
 //   value: number;
@@ -40,17 +64,11 @@ userChoiceRouter.get("/:id/:choice", [], (req, res) => __awaiter(void 0, void 0,
         query[req.params.choice] = 1;
         const choiceRes = yield userChoiceModel
             .find({ user: new mongoose.Types.ObjectId(req.params.id) }, query)
-            .lean();
-        const actionList = choiceRes[0][req.params.choice];
-        let actionDataList = [];
-        for (var i = 0; i < actionList.length; i++) {
-            const actionInfo = yield (currModal === null || currModal === void 0 ? void 0 : currModal.findOne({
-                _id: actionList[i],
-            }));
-            actionDataList[i] = actionInfo;
-        }
-        // console.log("length is " + actionDataList);
-        res.json(actionDataList);
+            .lean()
+            .populate(req.params.choice)
+            .exec();
+        const actionList = choiceRes[0][convert(req.params.choice)];
+        res.json(actionList);
         console.log("[userChoice] response send for fav rapper");
     }
     catch (error) {
@@ -71,7 +89,8 @@ userChoiceRouter.post("/allFavSongs", authMiddleware, (req, res) => __awaiter(vo
         .find({
         user: new mongoose.Types.ObjectId((_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id),
     }, { favsong: 1 })
-        .lean();
+        .lean()
+        .exec();
     const favSongs = favSongsArray[0]["favsong"];
     let favSongList = [];
     for (var i = 0; i < favSongs.length; i++) {
@@ -92,17 +111,16 @@ userChoiceRouter.post("/allFavSongs", authMiddleware, (req, res) => __awaiter(vo
 userChoiceRouter.post("/add/:choice/:id/", authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     const currModal = modals.get(req.params.choice);
-    var query = {
-        action: convert(req.params.choice),
-        value: 1,
-    };
+    var query = {};
+    query[req.params.choice] = 1;
     const isChoicePresent = yield userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
         yield userChoiceModel
             .updateOne({
             user: new mongoose.Types.ObjectId((_b = req === null || req === void 0 ? void 0 : req.user) === null || _b === void 0 ? void 0 : _b.id),
         }, { $push: query })
-            .lean();
+            .lean()
+            .exec();
     }
     const actionInfo = yield (currModal === null || currModal === void 0 ? void 0 : currModal.findOne({
         _id: req.params.id,
@@ -118,17 +136,16 @@ userChoiceRouter.post("/add/:choice/:id/", authMiddleware, (req, res) => __await
 userChoiceRouter.post("/remove/:choice/:id/", authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _c;
     const currModal = modals.get(req.params.choice);
-    var query = {
-        action: convert(req.params.choice),
-        value: 1,
-    };
+    var query = {};
+    query[req.params.choice] = 1;
     const isChoicePresent = yield userChoiceModel.find(query).lean();
     if (isChoicePresent.length === 0) {
         yield userChoiceModel
             .updateOne({
             user: [new mongoose.Types.ObjectId((_c = req === null || req === void 0 ? void 0 : req.user) === null || _c === void 0 ? void 0 : _c.id)],
         }, { $pull: query })
-            .lean();
+            .lean()
+            .exec();
     }
     const actionInfo = yield (currModal === null || currModal === void 0 ? void 0 : currModal.findOne({
         _id: req.params.id,
@@ -187,7 +204,8 @@ userChoiceRouter.post("/dislikedartist/:action/:id", authMiddleware, (req, res) 
 userChoiceRouter.get("/likecheck/:likeaction/:artistid", authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const isLikedInfo = yield userChoiceModel
         .findOne({ [req.params.likeaction]: req.params.artistid })
-        .lean();
+        .lean()
+        .exec();
     if (isLikedInfo !== null) {
         res.json({ res: "true" });
     }

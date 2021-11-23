@@ -17,11 +17,11 @@ const songSchema = new mongoose.Schema<SongInterface>({
   },
   rapper: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "rappers",
+    ref: "rapper",
   },
   beatproducer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "beatproducers",
+    ref: "beatproducer",
   },
   songlinks: {
     type: Array,

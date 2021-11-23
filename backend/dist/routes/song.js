@@ -28,14 +28,16 @@ songRouter.get("/:artistType/:id", [], (req, res) => __awaiter(void 0, void 0, v
                 .find({
                 rapper: new mongoose.Types.ObjectId(req.params.id),
             })
-                .lean();
+                .lean()
+                .exec();
         }
         else {
             songs = yield songModel
                 .find({
                 beatproducer: new mongoose.Types.ObjectId(req.params.id),
             })
-                .lean();
+                .lean()
+                .exec();
         }
         res.json(songs);
     }
@@ -59,7 +61,8 @@ songRouter.post("/likeSong/:songId", authMiddleware, (req, res) => __awaiter(voi
         .findOne({
         likedSong: new mongoose.Types.ObjectId(req.params.songId),
     })
-        .lean();
+        .lean()
+        .exec();
     if (isLiked === null) {
         yield songModel.updateOne({ _id: req.params.songId }, { $inc: { like: 1 } });
     }
@@ -67,7 +70,8 @@ songRouter.post("/likeSong/:songId", authMiddleware, (req, res) => __awaiter(voi
         .findOne({
         dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
     })
-        .lean();
+        .lean()
+        .exec();
     if (isDisliked !== null) {
         //remove from dislike user choice
         yield userChoiceModel
@@ -78,7 +82,8 @@ songRouter.post("/likeSong/:songId", authMiddleware, (req, res) => __awaiter(voi
                 dislikedSong: req.params.songId,
             },
         })
-            .lean();
+            .lean()
+            .exec();
         //decrease unlike count
         yield songModel.updateOne({ _id: req.params.songId }, { $inc: { dislike: -1 } });
     }
@@ -101,7 +106,8 @@ songRouter.post("/dislikeSong/:songId", authMiddleware, (req, res) => __awaiter(
         .findOne({
         dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
     })
-        .lean();
+        .lean()
+        .exec();
     if (isDisliked === null) {
         yield songModel.updateOne({ _id: req.params.songId }, { $inc: { dislike: 1 } });
     }
@@ -120,7 +126,8 @@ songRouter.post("/dislikeSong/:songId", authMiddleware, (req, res) => __awaiter(
                 likedSong: req.params.songId,
             },
         })
-            .lean();
+            .lean()
+            .exec();
         //decrease unlike count
         yield songModel.updateOne({ _id: req.params.songId }, { $inc: { like: -1 } });
     }

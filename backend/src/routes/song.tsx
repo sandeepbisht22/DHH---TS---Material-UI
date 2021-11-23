@@ -20,19 +20,25 @@ const songRouter = Router();
 songRouter.get("/:artistType/:id", [], async (req: Request, res: Response) => {
   try {
     //check for all the songs with artist id provided.
-    let songs: SongInterface;
+    let songs: mongoose.LeanDocument<
+      SongInterface & {
+        _id: any;
+      }
+    >[];
     if (req.params.artistType === "rappers") {
       songs = await songModel
         .find({
           rapper: new mongoose.Types.ObjectId(req.params.id),
         })
-        .lean();
+        .lean()
+        .exec();
     } else {
       songs = await songModel
         .find({
           beatproducer: new mongoose.Types.ObjectId(req.params.id),
         })
-        .lean();
+        .lean()
+        .exec();
     }
 
     res.json(songs);
@@ -58,12 +64,12 @@ songRouter.post(
   async (req: IGetUserAuthInfoRequest, res: Response) => {
     //like only if not present in like
 
-    const isLiked: UserChoiceInterface = await userChoiceModel
+    const isLiked = await userChoiceModel
       .findOne({
         likedSong: new mongoose.Types.ObjectId(req.params.songId),
       })
-      .lean();
-
+      .lean()
+      .exec();
     if (isLiked === null) {
       await songModel.updateOne(
         { _id: req.params.songId },
@@ -75,7 +81,8 @@ songRouter.post(
       .findOne({
         dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
       })
-      .lean();
+      .lean()
+      .exec();
     if (isDisliked !== null) {
       //remove from dislike user choice
       await userChoiceModel
@@ -89,7 +96,8 @@ songRouter.post(
             },
           }
         )
-        .lean();
+        .lean()
+        .exec();
       //decrease unlike count
       await songModel.updateOne(
         { _id: req.params.songId },
@@ -121,7 +129,8 @@ songRouter.post(
       .findOne({
         dislikedSong: new mongoose.Types.ObjectId(req.params.songId),
       })
-      .lean();
+      .lean()
+      .exec();
     if (isDisliked === null) {
       await songModel.updateOne(
         { _id: req.params.songId },
@@ -147,7 +156,8 @@ songRouter.post(
             },
           }
         )
-        .lean();
+        .lean()
+        .exec();
       //decrease unlike count
       await songModel.updateOne(
         { _id: req.params.songId },
