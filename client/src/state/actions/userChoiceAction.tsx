@@ -39,7 +39,7 @@ export const addFav = (choice, id) => async (dispatch) => {
   try {
     setAuthToken(localStorage.token);
     const config = {
-      header: {
+      headers: {
         "content-type": "application/json",
       },
     };
@@ -63,7 +63,7 @@ export const removeFav = (choice, id) => async (dispatch) => {
   try {
     setAuthToken(localStorage.token);
     const config = {
-      header: {
+      headers: {
         "content-type": "application/json",
       },
     };

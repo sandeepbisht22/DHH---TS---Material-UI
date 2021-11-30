@@ -1,5 +1,5 @@
 import React from "react";
-import devProfile from "../../resources/images/me and the mountain call.JPG";
+// import devProfile from "../../resources/images/me and the mountain call.JPG";
 const About = () => {
   return (
     <div className="container-fluid" style={{ backgroundColor: "#272727" }}>
@@ -9,7 +9,7 @@ const About = () => {
           style={{ borderColor: "black !important", height: "60vh" }}
         >
           <img
-            src={devProfile}
+            src="../../resources/images/me and the mountain call.JPG"
             alt=""
             className="rounded-circle border border-3"
             style={{ height: "50vh", width: "53vh" }}

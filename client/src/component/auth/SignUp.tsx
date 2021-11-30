@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { userActions, alertActions } from "../../state/actions";
 import { useSelector, useDispatch } from "react-redux";
 import LoginGoogle from "./LoginGoogle";
+import { userInterface } from "./../../state/reducer/userReducer";
 
 const SignUp = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: "",
@@ -51,12 +52,17 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const error = useSelector((state) => state.user.error);
+  const isAuthenticated = useSelector<
+    userInterface,
+    userInterface["isAuthenticated"]
+  >((state) => state.isAuthenticated);
 
+  const error = useSelector<userInterface, userInterface["error"]>(
+    (state) => state.error
+  );
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/");
+      navigate("/");
     } else if (error === "invalid Email" || error === "invalid Password") {
       dispatch(alertActions.setAlert(error, "danger"));
       dispatch(userActions.clearErrors());

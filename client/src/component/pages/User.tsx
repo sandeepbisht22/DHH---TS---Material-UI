@@ -1,20 +1,41 @@
 import React, { useState, useEffect } from "react";
-import profileImage from "../../resources/images/defaultProfile.png";
+// import profileImage from "../../resources/images/defaultProfile.png";
 import { useSelector, useDispatch } from "react-redux";
 import Songs from "../common/Songs";
 import FavArtist from "../common/FavArtist";
 import { songAction, userChoiceAction } from "../../state/actions";
+import { UserChoiceInterface } from "./../../../../backend/src/models/UserChoices";
+import { userInterface } from "../../state/reducer/userReducer";
+import {
+  songInterface,
+  songListInterface,
+} from "../../state/reducer/songReducer";
 
 const User = () => {
   const dispatch = useDispatch();
-  const songsList = useSelector((state) => state.song.songList);
-  const globalUser = useSelector((state) => state.user.user);
-  const favRapper = useSelector((state) => state.userChoice.favrapper);
-  const favSong = useSelector((state) => state.userChoice.favsong);
+  const songsList = useSelector<
+    songListInterface,
+    songListInterface["songList"]
+  >((state) => state.songList);
 
-  const favBeatProducer = useSelector(
-    (state) => state.userChoice.favbeatproducer
+  const globalUser = useSelector<userInterface, userInterface["user"]>(
+    (state) => state.user
   );
+
+  const favRapper = useSelector<
+    UserChoiceInterface,
+    UserChoiceInterface["favrapper"]
+  >((state) => state.favrapper);
+
+  const favBeatProducer = useSelector<
+    UserChoiceInterface,
+    UserChoiceInterface["favbeatproducer"]
+  >((state) => state.favbeatproducer);
+
+  const favSong = useSelector<
+    UserChoiceInterface,
+    UserChoiceInterface["favsong"]
+  >((state) => state.favrapper);
 
   const [isEditable, setIsEditable] = useState(false);
   const [user, setUser] = useState(globalUser);
@@ -58,7 +79,7 @@ const User = () => {
           <div className="col-md-3 ">
             <div className="row-cols-md-3 text-center">
               <img
-                src={profileImage}
+                src="../../resources/images/defaultProfile.png"
                 alt="Profile image"
                 style={{ width: "60%", height: "70%" }}
                 className="border rounded-circle"
@@ -75,7 +96,7 @@ const User = () => {
                     id="userName"
                     value={user.name}
                     onChange={onChange}
-                    disabled={!isEditable ? "disabled" : ""}
+                    disabled={!isEditable ? true : false}
                     className="form-control"
                   />
                 </div>
@@ -86,7 +107,7 @@ const User = () => {
                   <input
                     type="email"
                     name="email"
-                    disabled={!isEditable ? "disabled" : ""}
+                    disabled={!isEditable ? true : false}
                     id="userEmail"
                     value={user.email}
                     onChange={onChange}
@@ -99,7 +120,7 @@ const User = () => {
                   </label>
                   <input
                     type="text"
-                    disabled={!isEditable ? "disabled" : ""}
+                    disabled={!isEditable ? true : false}
                     name="phoneno"
                     id="userPhone"
                     value={user.phoneno}

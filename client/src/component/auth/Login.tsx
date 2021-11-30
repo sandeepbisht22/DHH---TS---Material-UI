@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions, alertActions } from "../../state/actions";
-import loginArtist from "../../resources/images/LoginArtist.jpg";
+// import loginArtist from "../../resources/images/LoginArtist.jpg";
 import LoginGoogle from "./LoginGoogle";
+import { userInterface } from "./../../state/reducer/userReducer";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
   const { email, password } = user;
 
-  const history = useHistory();
   const submit = (e) => {
     e.preventDefault();
     console.log("Login called");
@@ -44,15 +44,20 @@ const Login = () => {
   };
 
   const userSignUp = () => {
-    history.push("/signup");
+    navigate("/signup");
   };
 
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const error = useSelector((state) => state.user.error);
+  const isAuthenticated = useSelector<
+    userInterface,
+    userInterface["isAuthenticated"]
+  >((state) => state.isAuthenticated);
 
+  const error = useSelector<userInterface, userInterface["error"]>(
+    (state) => state.error
+  );
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/");
+      navigate("/");
     }
     if (error !== null) {
       dispatch(alertActions.setAlert(error, "danger"));
@@ -70,7 +75,11 @@ const Login = () => {
           }}
         >
           <div className="col-md-4 d-flex justify-content-center align-items-center-center border border-3 ">
-            <img src={loginArtist} alt="" className="img-fluid" />
+            <img
+              src="../../resources/images/LoginArtist.jpg"
+              alt=""
+              className="img-fluid"
+            />
           </div>
           <div className="col-md-7 border border-3">
             <h2 className="text-center">Login</h2>
@@ -116,7 +125,7 @@ const Login = () => {
                   className="form-control"
                   id="inputPassword"
                   value={password}
-                  minLength="6"
+                  minLength={6}
                   onChange={onChange}
                 />
               </div>

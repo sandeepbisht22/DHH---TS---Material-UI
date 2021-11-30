@@ -1,9 +1,21 @@
 import { SET_ALERT, REMOVE_ALERT } from "../types";
 
+export interface alertReducerInterface {
+  alerts: { msg: string; type: string; id: string }[];
+}
+
+export type AlertAction =
+  | { type: "SET_ALERT"; payload: { msg: string; type: string; id: string } }
+  | { type: "REMOVE_ALERT"; payload: string };
+
 const initialState = {
   alerts: [],
 };
-export default (state = initialState, action) => {
+
+export default (
+  state: alertReducerInterface = initialState,
+  action: AlertAction
+) => {
   switch (action.type) {
     case SET_ALERT: {
       return {

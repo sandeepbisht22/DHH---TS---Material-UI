@@ -3,9 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { songAction, userChoiceAction } from "../../state/actions";
 
 const Songs = ({ songsList }) => {
-  const artistType = useSelector((state) => state.artist.artistType);
-  const currArtist = useSelector((state) => state.artist.currArtist);
-
   const dispatch = useDispatch();
   const [songFavouriteIconClass, setSongFavouriteIconClass] =
     useState("far fa-heart");

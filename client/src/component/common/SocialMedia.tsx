@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
-
-const SocialMedia = ({ socialaccount, i }) => {
+interface socialAccountInterface {
+  socialaccount: { [k: string]: string };
+}
+const SocialMedia = (props: socialAccountInterface) => {
   const socialMediaMap = {
     instagram: "fab fa-instagram-square fa-5x",
     facebook: "fab fa-facebook-square fa-5x",
@@ -9,8 +11,7 @@ const SocialMedia = ({ socialaccount, i }) => {
     spotify: "fab fa-spotify fa-5x",
     apple: "fab fa-apple fa-5x",
   }; //will move this thing in database later
-  const entries = Object.entries(socialaccount);
-  const secondColumnStart = socialMediaMap.length / 2;
+  const entries = Object.entries(props.socialaccount);
 
   const keyValue = entries[0][0];
   let className = null;
@@ -19,7 +20,7 @@ const SocialMedia = ({ socialaccount, i }) => {
       className = value;
     }
   });
-  const clickLink = entries[0][1];
+  const clickLink: string = entries[0][1];
 
   return (
     <Fragment>

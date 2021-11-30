@@ -4,8 +4,11 @@ import HomeSlider from "../layout/HomeSlider";
 import Footer from "../layout/Footer";
 import { userChoiceAction } from "../../state/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { userInterface } from "./../../state/reducer/userReducer";
 const Home = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector<userInterface, userInterface["user"]>(
+    (state) => state.user
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -35,7 +35,7 @@ const LeftArrow = () => {
   return (
     <div
       style={{ color: "#61892F" }}
-      disabled={isFirstItemVisible}
+      data-disabled={isFirstItemVisible}
       onClick={() => scrollPrev()}
       className="mt-5 pt-5"
     >
@@ -50,7 +50,7 @@ const RightArrow = () => {
   return (
     <div
       style={{ color: "#61892F" }}
-      disabled={isLastItemVisible}
+      data-disabled={isLastItemVisible}
       onClick={() => scrollNext()}
       className="mt-5 pt-5"
     >

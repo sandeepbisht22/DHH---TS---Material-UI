@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
 import { alertActions, userActions } from "../../state/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
+import { userInterface } from "./../../state/reducer/userReducer";
 var generator = require("generate-password");
 
 const LoginGoogle = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const onSuccess = (res) => {
     try {
       dispatch(userActions.loginViaGoogle(res.profileObj.email));
@@ -33,13 +34,19 @@ const LoginGoogle = () => {
   const onFailure = () => {
     console.log("Login Fail");
   };
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const error = useSelector((state) => state.user.error);
+  const isAuthenticated = useSelector<
+    userInterface,
+    userInterface["isAuthenticated"]
+  >((state) => state.isAuthenticated);
+
+  const error = useSelector<userInterface, userInterface["error"]>(
+    (state) => state.error
+  );
 
   const value = process.env.REACT_APP_GOOGLE_O_AUTH_CLIENT_ID;
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/");
+      navigate("/");
     } else if (error === "invalid Email" || error === "invalid Password") {
       dispatch(alertActions.setAlert(error, "danger"));
       dispatch(userActions.clearErrors());

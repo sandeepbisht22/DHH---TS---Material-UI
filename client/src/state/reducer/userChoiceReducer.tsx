@@ -5,7 +5,41 @@ import {
   FAV_ADDED,
   FAV_REMOVED,
 } from "../types";
-
+import { artistInterface } from "./artistReducer";
+import { songInterface } from "./songReducer";
+interface userChoiceInterface {
+  favRapper: artistInterface[];
+  favbeatproducer: artistInterface[];
+  favsong: songInterface;
+  currartistchoiceinfo: artistInterface;
+  error: string; // fill with Actual error type
+}
+export type UserChoiceAction =
+  | {
+      type: "FAV_RAPPER";
+      payload: artistInterface[];
+    }
+  | {
+      type: "FAV_BEATPRODUCER";
+      payload: artistInterface[];
+    }
+  | {
+      type: "FAV_SONG";
+      payload: songInterface[];
+    }
+  | {
+      type: "FAV_ADDED";
+      payload: {
+        choice: string;
+        value: songInterface | artistInterface;
+      };
+    }
+  | {
+      type: "FAV_REMOVED";
+      payload: {
+        id: string;
+      };
+    };
 const initialState = {
   favrapper: null,
   favbeatproducer: null,
@@ -14,7 +48,7 @@ const initialState = {
   error: null,
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: UserChoiceAction) => {
   switch (action.type) {
     case FAV_RAPPER:
       return {

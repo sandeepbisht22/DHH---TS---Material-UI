@@ -9,15 +9,45 @@ import {
   CLEAR_ERROR,
   LOGIN_VIA_GOOGLE,
 } from "../types";
-
-const initialState = {
+interface singleUser {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  phoneno: number;
+  image: string;
+}
+export interface userInterface {
+  token: string;
+  user: singleUser;
+  isAuthenticated: boolean;
+  loading: boolean;
+  error: string;
+}
+const initialState: userInterface = {
   token: localStorage.getItem("token"),
   user: null,
   isAuthenticated: false,
   loading: false,
   error: null,
 };
-export default (state = initialState, action) => {
+export type UserAction =
+  | {
+      type: "LOGIN_USER_SUCCESS" | "SIGNUP_USER_SUCCESS" | "LOGIN_VIA_GOOGLE";
+      payload: {
+        token: string;
+      };
+    }
+  | {
+      type: "LOAD_USER";
+      payload: singleUser;
+    }
+  | {
+      type: "SIGNUP_FAIL" | "LOGIN_USER_FAIL" | "AUTH_FAIL" | "LOGOUT_USER";
+      payload: string; //give actuall erorr info
+    }
+  | { type: "CLEAR_ERROR" };
+export default (state = initialState, action: UserAction) => {
   switch (action.type) {
     case LOGIN_USER_SUCCESS:
     case SIGNUP_USER_SUCCESS:

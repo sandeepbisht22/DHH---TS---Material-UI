@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import SocialMedia from "../../common/SocialMedia";
 import YoutubeVideo from "../../common/YoutubeVideo";
+
 import {
   artistActions,
   songAction,
@@ -11,14 +12,27 @@ import Songs from "../../common/Songs";
 import axios from "axios";
 import setAuthToken from "../../../utils/setAuthnToken";
 import { favRappers } from "../../../state/actions/userChoiceAction";
+import { artistInterface } from "./../../../state/reducer/artistReducer";
+import { UserChoiceInterface } from "./../../../../../backend/src/models/UserChoices";
 
 const Rapper = ({ match }) => {
   const dispatch = useDispatch();
-  const artistType = useSelector((state) => state.artist.artistType);
-  const currArtist = useSelector((state) => state.artist.currArtist);
-  const favRappers = useSelector((state) => state.userChoice.favrapper);
-  let isFav = {};
-  isFav.length = 0;
+  const artistType = useSelector<
+    artistInterface,
+    artistInterface["artistType"]
+  >((state) => state.artistType);
+
+  const currArtist = useSelector<
+    artistInterface,
+    artistInterface["currArtist"]
+  >((state) => state.currArtist);
+
+  const favRappers = useSelector<
+    UserChoiceInterface,
+    UserChoiceInterface["favrapper"]
+  >((state) => state.favrapper);
+
+  let isFav: { length: number } = { length: 0 };
   if (favRappers !== null) {
     isFav = favRappers.filter((rapper) => rapper.name === currArtist.name);
   }
@@ -111,23 +125,26 @@ const Rapper = ({ match }) => {
   //   dispatch(songAction.allArtistSongs(artistType, currArtist._id));
   //   songUpdate.current = true;
   // }
-  useEffect(async () => {
-    try {
-      setAuthToken(localStorage.token);
-      const disLikedCheck = await axios.get(
-        `/userchoice/likecheck/dislikedrapper/${currArtist._id}`
-      );
-      setDisliked(disLikedCheck.data.res === "true");
+  useEffect(() => {
+    async function fetchMyAPI() {
+      try {
+        setAuthToken(localStorage.token);
+        const disLikedCheck = await axios.get<{ res: string }>(
+          `/userchoice/likecheck/dislikedrapper/${currArtist._id}`
+        );
+        setDisliked(disLikedCheck.data.res === "true");
 
-      const likedCheck = await axios.get(
-        `/userchoice/likecheck/likedrapper/${currArtist._id}`
-      );
-      setLiked(likedCheck.data.res === "true");
+        const likedCheck = await axios.get<{ res: string }>(
+          `/userchoice/likecheck/likedrapper/${currArtist._id}`
+        );
+        setLiked(likedCheck.data.res === "true");
 
-      dispatch(
-        artistActions.currentArtistInfo(artistType, match.params.rapper)
-      );
-    } catch (error) {}
+        dispatch(
+          artistActions.currentArtistInfo(artistType, match.params.rapper)
+        );
+      } catch (error) {}
+    }
+    fetchMyAPI();
   }, []);
 
   return (
@@ -199,8 +216,8 @@ const Rapper = ({ match }) => {
           </h3>
           <div className="container-fluid">
             <div className="row justify-content-md-center">
-              {currArtist.sociallinks.map((socialaccount, i) => (
-                <SocialMedia socialaccount={socialaccount} i={i}></SocialMedia>
+              {currArtist.sociallinks.map((socialaccount) => (
+                <SocialMedia socialaccount={socialaccount}></SocialMedia>
               ))}
             </div>
           </div>

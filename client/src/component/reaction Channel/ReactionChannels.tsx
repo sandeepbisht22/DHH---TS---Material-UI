@@ -45,7 +45,7 @@ function LeftArrow() {
     React.useContext(VisibilityContext);
 
   return (
-    <div disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
+    <div data-disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
       Left
     </div>
   );
@@ -55,7 +55,7 @@ function RightArrow() {
   const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
 
   return (
-    <div disabled={isLastItemVisible} onClick={() => scrollNext()}>
+    <div data-disabled={isLastItemVisible} onClick={() => scrollNext()}>
       Right
     </div>
   );

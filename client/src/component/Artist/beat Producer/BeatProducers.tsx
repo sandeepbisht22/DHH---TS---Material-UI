@@ -2,12 +2,16 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HorizontalScroll from "../../common/HorizontalScroll";
 import { artistActions } from "../../../state/actions";
+import { artistInterface } from "./../../../state/reducer/artistReducer";
+
 const BeatProducers = () => {
   const artistType = "beatProducers";
   const titles = ["OG"];
   const dispatch = useDispatch();
   dispatch(artistActions.currentArtistType("beatProducers"));
-  const artists = useSelector((state) => state.artist.artists);
+  const artists = useSelector<artistInterface, artistInterface["artists"]>(
+    (state) => state.artists
+  );
 
   useEffect(() => {
     try {

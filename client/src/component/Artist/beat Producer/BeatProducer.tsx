@@ -6,14 +6,24 @@ import { useSelector, useDispatch } from "react-redux";
 import Songs from "../../common/Songs";
 import axios from "axios";
 import setAuthToken from "../../../utils/setAuthnToken";
+import { useParams } from "react-router-dom";
+import { artistInterface } from "./../../../state/reducer/artistReducer";
 
-const BeatProducer = ({ match }) => {
+const BeatProducer = ({}) => {
   const dispatch = useDispatch();
-  const artistType = useSelector((state) => state.artist.artistType);
+  const params = useParams();
+
+  const artistType = useSelector<
+    artistInterface,
+    artistInterface["artistType"]
+  >((state) => state.artistType);
 
   const [artistFavouriteIconClass, setArtistFavouriteIconClass] =
     useState("far fa-heart fa-3x");
-  const currArtist = useSelector((state) => state.artist.currArtist);
+  const currArtist = useSelector<
+    artistInterface,
+    artistInterface["currArtist"]
+  >((state) => state.currArtist);
 
   const artistFavourite = (e) => {
     dispatch(userChoiceAction.addFav("favbeatproducer", currArtist._id));
@@ -100,24 +110,28 @@ const BeatProducer = ({ match }) => {
       dbUpdate("unLike", "inc");
     }
   }
-  useEffect(async () => {
-    try {
-      setAuthToken(localStorage.token);
-      const disLikedCheck = await axios.get(
-        `/userchoice/likecheck/dislikedbeatproducer/${currArtist._id}`
-      );
-      setDisliked(disLikedCheck.data.res === "true");
 
-      const likedCheck = await axios.get(
-        `/userchoice/likecheck/likedbeatproducer/${currArtist._id}`
-      );
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setAuthToken(localStorage.token);
+        const disLikedCheck = await axios.get<{ res: string }>(
+          `/userchoice/likecheck/dislikedbeatproducer/${currArtist._id}`
+        );
+        setDisliked(disLikedCheck.data.res === "true");
 
-      setLiked(likedCheck.data.res === "true");
+        const likedCheck = await axios.get<{ res: string }>(
+          `/userchoice/likecheck/likedbeatproducer/${currArtist._id}`
+        );
 
-      dispatch(
-        artistActions.currentArtistInfo(artistType, match.params.beatProducer)
-      );
-    } catch (error) {}
+        setLiked(likedCheck.data.res === "true");
+
+        dispatch(
+          artistActions.currentArtistInfo(artistType, params.beatProducer)
+        );
+      } catch (error) {}
+    }
+    fetchData();
   }, []);
 
   return (
@@ -189,8 +203,8 @@ const BeatProducer = ({ match }) => {
           </h3>
           <div className="container-fluid">
             <div className="row justify-content-md-center">
-              {currArtist.sociallinks.map((socialaccount, i) => (
-                <SocialMedia socialaccount={socialaccount} i={i}></SocialMedia>
+              {currArtist.sociallinks.map((socialaccount) => (
+                <SocialMedia socialaccount={socialaccount}></SocialMedia>
               ))}
             </div>
           </div>

@@ -1,10 +1,30 @@
 import { LIKE_SONG, ALL_SONG } from "./../types";
 
-const initialState = {
+export interface songInterface {
+  _id: string;
+  name: string;
+  like: number;
+  dislike: number;
+  rapper: string;
+  songLinks: string[];
+  img: string;
+}
+interface songListInterface {
+  songList: songInterface[];
+}
+
+const initialState: songListInterface = {
   songList: null,
 };
 
-export default (state = initialState, action) => {
+export type SongAction =
+  | { type: "ALL_SONG"; payload: songInterface[] }
+  | {
+      type: "LIKE_SONG";
+      payload: { id: songInterface["_id"]; data: songInterface };
+    };
+
+export default (state = initialState, action: SongAction) => {
   switch (action.type) {
     case LIKE_SONG:
       return {

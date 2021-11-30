@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Navbar from "./component/layout/Navbar";
 import Home from "./component/pages/Home";
 import About from "./component/pages/About";
@@ -27,9 +27,9 @@ function App() {
             <Fragment>
               <Navbar></Navbar>
               <Alerts></Alerts>
-              <Switch>
-                <PrivateRoute exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
+              <Routes>
+                <PrivateRoute path="/" component={Home} />
+                <Route path="/about" element={<About />} />
                 <PrivateRoute
                   exact
                   path="/artist/rappers"
@@ -55,11 +55,11 @@ function App() {
                   path="/artist/beatproducers/:beatProducer"
                   component={BeatProducer}
                 />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={SignUp} />
-                <Route exact path="/test" component={Test} />
-                <Route exact path="/user" component={User} />
-              </Switch>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/test" element={<Test />} />
+                <Route path="/user" element={<User />} />
+              </Routes>
             </Fragment>
           </Router>
         </div>

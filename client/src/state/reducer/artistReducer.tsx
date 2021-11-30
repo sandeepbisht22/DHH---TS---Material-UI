@@ -6,6 +6,34 @@ import {
   ARTIST_LIKED,
 } from "../types";
 
+interface artist {
+  _id: string;
+  name: string;
+  about: string;
+  title: string;
+  sociallinks: { [k: string]: string }[];
+  originalName: string;
+  profileImage: string;
+  like: number;
+  unLike: number;
+  songs: string[];
+}
+
+export interface artistInterface {
+  artists: artist[] | null;
+  currArtist: artist | null;
+  artistType: string;
+  loading: boolean;
+  error: string;
+}
+export type ArtistAction =
+  | { type: "ARTIST_TYPE"; payload: string }
+  | { type: "ARTISTS_INFO"; payload: artist[] }
+  | { type: "CURRENT_ARTIST"; payload: artist }
+  | { type: "ARTIST_LIKED"; payload: { id: string; action: string } }
+  | { type: "ARTIST_UNLIKED"; payload: { id: string; action: string } }
+  | { type: "ARTIST_TYPE"; payload: string }
+  | { type: "ARTIST_TYPE"; payload: string };
 const initialState = {
   artists: null,
   currArtist: null,
@@ -13,7 +41,10 @@ const initialState = {
   loading: false,
   error: null,
 };
-export default (state = initialState, action) => {
+export default (
+  state: artistInterface = initialState,
+  action: ArtistAction
+) => {
   switch (action.type) {
     case ARTIST_TYPE: {
       return {

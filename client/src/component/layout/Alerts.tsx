@@ -1,16 +1,22 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
+import { alertReducerInterface } from "./../../state/reducer/alertReducer";
 
 const Alerts = () => {
-  const alerts = useSelector((state) => state.alerts.alerts);
+  const alerts = useSelector<
+    alertReducerInterface,
+    alertReducerInterface["alerts"]
+  >((state) => state.alerts);
   return (
-    alerts.length > 0 &&
-    alerts.map((alert) => (
-      <div key={alert.id} className={`alert alert-${alert.type}`}>
-        <i className="fas fa-info-circle" />
-        {alert.msg}
-      </div>
-    ))
+    <Fragment>
+      {alerts.length > 0 &&
+        alerts.map((alert) => (
+          <div key={alert.id} className={`alert alert-${alert.type}`}>
+            <i className="fas fa-info-circle" />
+            {alert.msg}
+          </div>
+        ))}
+    </Fragment>
   );
 };
 export default Alerts;
