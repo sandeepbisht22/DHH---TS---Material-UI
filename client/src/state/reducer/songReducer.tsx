@@ -6,11 +6,11 @@ export interface songInterface {
   like: number;
   dislike: number;
   rapper: string;
-  songLinks: string[];
+  songLinks: string[][];
   img: string;
 }
-interface songListInterface {
-  songList: songInterface[];
+export interface songListInterface {
+  songList: songInterface[] | null;
 }
 
 const initialState: songListInterface = {
@@ -29,7 +29,7 @@ export default (state = initialState, action: SongAction) => {
     case LIKE_SONG:
       return {
         ...state,
-        songList: state.songList.map((song) =>
+        songList: state.songList?.map((song) =>
           song._id === action.payload.id ? action.payload.data : song
         ),
       };

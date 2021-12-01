@@ -15,8 +15,8 @@ const Login = () => {
   });
   const { email, password } = user;
 
-  const submit = (e) => {
-    e.preventDefault();
+  const submit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
     console.log("Login called");
     try {
       if (email === "" && password === "") {
@@ -29,17 +29,17 @@ const Login = () => {
           })
         );
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(
         "[ LOGIN ] Error while loggin in due to exception" + error.message
       );
     }
   };
 
-  const onChange = (e) => {
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [e.currentTarget.name]: e.currentTarget.value,
     });
   };
 
@@ -63,7 +63,7 @@ const Login = () => {
       dispatch(alertActions.setAlert(error, "danger"));
       dispatch(userActions.clearErrors());
     }
-  }, [error, isAuthenticated, history]);
+  }, [error, isAuthenticated, navigate]);
   return (
     <div style={{ backgroundColor: "grey" }}>
       <div className="container py-5">

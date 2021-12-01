@@ -16,7 +16,7 @@ const BeatProducers = () => {
   useEffect(() => {
     try {
       dispatch(artistActions.artistsInfo(artistType, titles));
-    } catch (error) {
+    } catch (error: any) {
       console.log("error is " + error.message);
     }
   }, []);

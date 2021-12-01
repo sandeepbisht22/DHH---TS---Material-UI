@@ -3,8 +3,14 @@ import { useNavigate } from "react-router";
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
 import { useSelector } from "react-redux";
 import { artistInterface } from "./../../state/reducer/artistReducer";
-
-const ScrollItem = ({ itemId, profileImage, name, selected }) => {
+interface ScrollItemPropsInterface {
+  itemId: number;
+  profileImage: string;
+  name: string;
+  selected: boolean;
+}
+const ScrollItem = (props: ScrollItemPropsInterface) => {
+  const { itemId, profileImage, name, selected } = props;
   const visibility = React.useContext(VisibilityContext);
   const navigate = useNavigate();
   const artistType = useSelector<
@@ -17,7 +23,7 @@ const ScrollItem = ({ itemId, profileImage, name, selected }) => {
     <Fragment>
       <div
         className="mx-2"
-        onClick={() => navigate(`/artist/${artistType}/${name}`, name)}
+        onClick={() => navigate(`/artist/${artistType}/${name}`)}
         style={{
           width: "350px",
         }}

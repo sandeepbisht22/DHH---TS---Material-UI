@@ -7,7 +7,7 @@ import LogoutGoogle from "../auth/LogoutGoogle";
 import { userInterface } from "./../../state/reducer/userReducer";
 import User from "./../pages/User";
 
-const Navbar = (props) => {
+const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector<

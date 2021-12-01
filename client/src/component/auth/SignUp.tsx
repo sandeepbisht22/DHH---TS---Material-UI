@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, EventHandler } from "react";
 import { useNavigate } from "react-router";
 import { userActions, alertActions } from "../../state/actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ const SignUp = () => {
 
   const { name, email, phoneno, password, password2 } = user;
 
-  const onSubmit = (e) => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
     if (
@@ -46,10 +46,10 @@ const SignUp = () => {
     console.log("On Submit called");
   };
 
-  const onChange = (e) => {
+  const onChange: React.FormEventHandler<HTMLFormElement> = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [e.currentTarget.name]: e.currentTarget.value,
     });
   };
   const isAuthenticated = useSelector<
@@ -67,7 +67,7 @@ const SignUp = () => {
       dispatch(alertActions.setAlert(error, "danger"));
       dispatch(userActions.clearErrors());
     }
-  }, [error, isAuthenticated, history]);
+  }, [error, isAuthenticated, navigate]);
   return (
     <div style={{ backgroundColor: "grey" }} className="container py-4">
       <div

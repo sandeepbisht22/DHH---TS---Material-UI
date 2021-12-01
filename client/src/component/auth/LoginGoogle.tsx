@@ -51,7 +51,7 @@ const LoginGoogle = () => {
       dispatch(alertActions.setAlert(error, "danger"));
       dispatch(userActions.clearErrors());
     }
-  }, [error, isAuthenticated, history]);
+  }, [error, isAuthenticated, navigate]);
   return (
     <div className="pb-3">
       <GoogleLogin

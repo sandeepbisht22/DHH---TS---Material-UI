@@ -5,23 +5,23 @@ import {
   FAV_ADDED,
   FAV_REMOVED,
 } from "../types";
-import { artistInterface } from "./artistReducer";
+import { artistInterface, singleArtist } from "./artistReducer";
 import { songInterface } from "./songReducer";
 interface userChoiceInterface {
-  favRapper: artistInterface[];
-  favbeatproducer: artistInterface[];
-  favsong: songInterface;
-  currartistchoiceinfo: artistInterface;
-  error: string; // fill with Actual error type
+  favrapper: singleArtist[] | null;
+  favbeatproducer: singleArtist[] | null;
+  favsong: songInterface | null;
+  currartistchoiceinfo: artistInterface | null;
+  error: string | null; // fill with Actual error type
 }
 export type UserChoiceAction =
   | {
       type: "FAV_RAPPER";
-      payload: artistInterface[];
+      payload: singleArtist[];
     }
   | {
       type: "FAV_BEATPRODUCER";
-      payload: artistInterface[];
+      payload: singleArtist[];
     }
   | {
       type: "FAV_SONG";
@@ -31,7 +31,7 @@ export type UserChoiceAction =
       type: "FAV_ADDED";
       payload: {
         choice: string;
-        value: songInterface | artistInterface;
+        value: songInterface | singleArtist;
       };
     }
   | {
@@ -40,7 +40,7 @@ export type UserChoiceAction =
         id: string;
       };
     };
-const initialState = {
+const initialState: userChoiceInterface = {
   favrapper: null,
   favbeatproducer: null,
   favsong: null,
@@ -76,7 +76,7 @@ export default (state = initialState, action: UserChoiceAction) => {
     case FAV_REMOVED:
       return {
         ...state,
-        favrapper: state.favrapper.map((rapper) => {
+        favrapper: state.favrapper?.map((rapper) => {
           if (rapper._id !== action.payload.id) {
             return rapper;
           }

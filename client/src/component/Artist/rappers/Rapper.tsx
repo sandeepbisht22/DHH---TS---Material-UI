@@ -14,9 +14,11 @@ import setAuthToken from "../../../utils/setAuthnToken";
 import { favRappers } from "../../../state/actions/userChoiceAction";
 import { artistInterface } from "./../../../state/reducer/artistReducer";
 import { UserChoiceInterface } from "./../../../../../backend/src/models/UserChoices";
+import { useParams } from "react-router";
 
-const Rapper = ({ match }) => {
+const Rapper = () => {
   const dispatch = useDispatch();
+  const params = useParams();
   const artistType = useSelector<
     artistInterface,
     artistInterface["artistType"]
@@ -34,19 +36,19 @@ const Rapper = ({ match }) => {
 
   let isFav: { length: number } = { length: 0 };
   if (favRappers !== null) {
-    isFav = favRappers.filter((rapper) => rapper.name === currArtist.name);
+    isFav = favRappers.filter((rapper) => rapper.name === currArtist?.name);
   }
 
   const [artistFavouriteIconClass, setArtistFavouriteIconClass] = useState(
     isFav.length > 0 ? "fas fa-heart fa-3x" : "far fa-heart fa-3x"
   );
 
-  const artistFavourite = (e) => {
+  const artistFavourite = () => {
     if (artistFavouriteIconClass === "far fa-heart fa-3x") {
-      dispatch(userChoiceAction.addFav("favrapper", currArtist._id));
+      dispatch(userChoiceAction.addFav("favrapper", currArtist?._id));
       setArtistFavouriteIconClass("fas fa-heart fa-3x");
     } else {
-      dispatch(userChoiceAction.removeFav("favrapper", currArtist._id));
+      dispatch(userChoiceAction.removeFav("favrapper", currArtist?._id));
       setArtistFavouriteIconClass("far fa-heart fa-3x");
     }
   };
@@ -54,30 +56,36 @@ const Rapper = ({ match }) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
-  async function likeArtist(config, addRemove) {
+  async function likeArtist(
+    config: { [k: string]: { [k: string]: string } },
+    addRemove: string
+  ) {
     setAuthToken(localStorage.token);
     await axios.post(
-      `/userchoice/likedartist/likedrapper/${addRemove}/${currArtist._id}`,
+      `/userchoice/likedartist/likedrapper/${addRemove}/${currArtist?._id}`,
       null,
       config
     );
   }
 
-  async function disLikedArtist(config, addRemove) {
+  async function disLikedArtist(
+    config: { [k: string]: { [k: string]: string } },
+    addRemove: string
+  ) {
     setAuthToken(localStorage.token);
     await axios.post(
-      `/userchoice/dislikedartist/dislikedrapper/${addRemove}/${currArtist._id}`,
+      `/userchoice/dislikedartist/dislikedrapper/${addRemove}/${currArtist?._id}`,
       null,
       config
     );
   }
-  function setLocalState(like, dislike) {
+  function setLocalState(like: boolean, dislike: boolean) {
     setDisliked(dislike);
     setLiked(like);
   }
-  function dbUpdate(currentAction, action) {
+  function dbUpdate(currentAction: string, action: string) {
     const likeUnlikeInfo = {
-      id: currArtist._id,
+      id: currArtist?._id,
       action: action,
     };
 
@@ -85,7 +93,7 @@ const Rapper = ({ match }) => {
       artistActions.likeUnLikeArtist("rappers", likeUnlikeInfo, currentAction)
     );
   }
-  function artistLikedUnliked(currentAction) {
+  function artistLikedUnliked(currentAction: string) {
     const config = {
       header: {
         "content-type": "application/json",
@@ -122,7 +130,7 @@ const Rapper = ({ match }) => {
   }
   // const songUpdate = useRef(false);
   // if (!songUpdate.current) {
-  //   dispatch(songAction.allArtistSongs(artistType, currArtist._id));
+  //   dispatch(songAction.allArtistSongs(artistType, currArtist?._id));
   //   songUpdate.current = true;
   // }
   useEffect(() => {
@@ -130,18 +138,16 @@ const Rapper = ({ match }) => {
       try {
         setAuthToken(localStorage.token);
         const disLikedCheck = await axios.get<{ res: string }>(
-          `/userchoice/likecheck/dislikedrapper/${currArtist._id}`
+          `/userchoice/likecheck/dislikedrapper/${currArtist?._id}`
         );
         setDisliked(disLikedCheck.data.res === "true");
 
         const likedCheck = await axios.get<{ res: string }>(
-          `/userchoice/likecheck/likedrapper/${currArtist._id}`
+          `/userchoice/likecheck/likedrapper/${currArtist?._id}`
         );
         setLiked(likedCheck.data.res === "true");
 
-        dispatch(
-          artistActions.currentArtistInfo(artistType, match.params.rapper)
-        );
+        dispatch(artistActions.currentArtistInfo(artistType, params.rapper));
       } catch (error) {}
     }
     fetchMyAPI();
@@ -202,7 +208,7 @@ const Rapper = ({ match }) => {
           <h3 style={{ color: "#61892F" }}>Famous Bars</h3>
           <div className="scroll">
             <div className="row flex-row flex-nowrap">
-              <Songs songsList={currArtist.songs}></Songs>
+              <Songs songList={currArtist.songs}></Songs>
               {/* <YoutubeVideo
                 youtubeKey="AIzaSyB47-Z2ZklkZUzSVKohYBoazrKVqM3ddxc"
                 channelId="UCMXMp3Lc6v6v8dJH5ZGwtqA"

@@ -9,7 +9,7 @@ import {
   CLEAR_ERROR,
   LOGIN_VIA_GOOGLE,
 } from "../types";
-interface singleUser {
+export interface singleUser {
   _id: string;
   name: string;
   email: string;
@@ -18,11 +18,11 @@ interface singleUser {
   image: string;
 }
 export interface userInterface {
-  token: string;
-  user: singleUser;
+  token: string | null;
+  user: singleUser | null;
   isAuthenticated: boolean;
   loading: boolean;
-  error: string;
+  error: string | null;
 }
 const initialState: userInterface = {
   token: localStorage.getItem("token"),

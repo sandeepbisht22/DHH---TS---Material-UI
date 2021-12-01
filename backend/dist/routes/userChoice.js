@@ -93,13 +93,6 @@ userChoiceRouter.post("/allFavSongs", authMiddleware, (req, res) => __awaiter(vo
         .populate("favsong")
         .exec();
     const favSongs = favSongsArray[0]["favsong"];
-    let favSongList = [];
-    for (var i = 0; i < favSongs.length; i++) {
-        const actionInfo = yield songModel.find({
-            _id: favSongs[i].toString(),
-        });
-        favSongList[i] = actionInfo[0];
-    }
     console.log(JSON.stringify(favSongs));
     res.json(favSongs);
 }));

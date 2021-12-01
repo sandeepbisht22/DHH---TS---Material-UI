@@ -5,8 +5,9 @@ import {
   ARTIST_UNLIKED,
   ARTIST_LIKED,
 } from "../types";
+import { songInterface } from "./songReducer";
 
-interface artist {
+export interface singleArtist {
   _id: string;
   name: string;
   about: string;
@@ -16,20 +17,20 @@ interface artist {
   profileImage: string;
   like: number;
   unLike: number;
-  songs: string[];
+  songs: songInterface[];
 }
 
 export interface artistInterface {
-  artists: artist[] | null;
-  currArtist: artist | null;
-  artistType: string;
+  artists: singleArtist[] | null;
+  currArtist: singleArtist | null;
+  artistType: string | null;
   loading: boolean;
-  error: string;
+  error: string | null;
 }
 export type ArtistAction =
   | { type: "ARTIST_TYPE"; payload: string }
-  | { type: "ARTISTS_INFO"; payload: artist[] }
-  | { type: "CURRENT_ARTIST"; payload: artist }
+  | { type: "ARTISTS_INFO"; payload: singleArtist[] }
+  | { type: "CURRENT_ARTIST"; payload: singleArtist }
   | { type: "ARTIST_LIKED"; payload: { id: string; action: string } }
   | { type: "ARTIST_UNLIKED"; payload: { id: string; action: string } }
   | { type: "ARTIST_TYPE"; payload: string }
@@ -70,9 +71,9 @@ export default (
         ...state,
         currArtist: {
           ...state.currArtist,
-          like: state.currArtist.like + likedVal,
+          like: state.currArtist!.like + likedVal,
         },
-        artists: state.artists.map((artist) =>
+        artists: state.artists?.map((artist) =>
           artist._id === action.payload.id
             ? {
                 ...artist,
@@ -88,9 +89,9 @@ export default (
         ...state,
         currArtist: {
           ...state.currArtist,
-          unLike: state.currArtist.unLike + unLikedVal,
+          unLike: state.currArtist!.unLike + unLikedVal,
         },
-        artists: state.artists.map((artist) =>
+        artists: state.artists?.map((artist) =>
           artist._id === action.payload.id
             ? {
                 ...artist,

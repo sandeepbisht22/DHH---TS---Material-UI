@@ -25,8 +25,8 @@ const BeatProducer = ({}) => {
     artistInterface["currArtist"]
   >((state) => state.currArtist);
 
-  const artistFavourite = (e) => {
-    dispatch(userChoiceAction.addFav("favbeatproducer", currArtist._id));
+  const artistFavourite = () => {
+    dispatch(userChoiceAction.addFav("favbeatproducer", currArtist?._id));
     setArtistFavouriteIconClass(
       artistFavouriteIconClass === "far fa-heart fa-3x"
         ? "fas fa-heart fa-3x"
@@ -39,30 +39,36 @@ const BeatProducer = ({}) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
-  async function likeArtist(config, addRemove) {
+  async function likeArtist(
+    config: { [k: string]: { [k: string]: string } },
+    addRemove: string
+  ) {
     setAuthToken(localStorage.token);
     await axios.post(
-      `/userchoice/likedartist/likedbeatproducer/${addRemove}/${currArtist._id}`,
+      `/userchoice/likedartist/likedbeatproducer/${addRemove}/${currArtist?._id}`,
       null,
       config
     );
   }
 
-  async function disLikedArtist(config, addRemove) {
+  async function disLikedArtist(
+    config: { [k: string]: { [k: string]: string } },
+    addRemove: string
+  ) {
     setAuthToken(localStorage.token);
     await axios.post(
-      `/userchoice/dislikedartist/dislikedbeatproducer/${addRemove}/${currArtist._id}`,
+      `/userchoice/dislikedartist/dislikedbeatproducer/${addRemove}/${currArtist?._id}`,
       null,
       config
     );
   }
-  function setLocalState(like, dislike) {
+  function setLocalState(like: boolean, dislike: boolean) {
     setDisliked(dislike);
     setLiked(like);
   }
-  function dbUpdate(currentAction, action) {
+  function dbUpdate(currentAction: string, action: string) {
     const likeUnlikeInfo = {
-      id: currArtist._id,
+      id: currArtist?._id,
       action: action,
     };
 
@@ -75,7 +81,7 @@ const BeatProducer = ({}) => {
     );
   }
 
-  function artistLikedUnliked(currentAction) {
+  function artistLikedUnliked(currentAction: string) {
     const config = {
       header: {
         "content-type": "application/json",
@@ -116,12 +122,12 @@ const BeatProducer = ({}) => {
       try {
         setAuthToken(localStorage.token);
         const disLikedCheck = await axios.get<{ res: string }>(
-          `/userchoice/likecheck/dislikedbeatproducer/${currArtist._id}`
+          `/userchoice/likecheck/dislikedbeatproducer/${currArtist?._id}`
         );
         setDisliked(disLikedCheck.data.res === "true");
 
         const likedCheck = await axios.get<{ res: string }>(
-          `/userchoice/likecheck/likedbeatproducer/${currArtist._id}`
+          `/userchoice/likecheck/likedbeatproducer/${currArtist?._id}`
         );
 
         setLiked(likedCheck.data.res === "true");
@@ -189,7 +195,7 @@ const BeatProducer = ({}) => {
           <h3 style={{ color: "#61892F" }}>Famous Bars</h3>
           <div className="scroll">
             <div className="row flex-row flex-nowrap">
-              <Songs songsList={currArtist.songs}></Songs>
+              <Songs songList={currArtist.songs}></Songs>
               {/* <YoutubeVideo
                 youtubeKey="AIzaSyB47-Z2ZklkZUzSVKohYBoazrKVqM3ddxc"
                 channelId="UCMXMp3Lc6v6v8dJH5ZGwtqA"
